@@ -334,9 +334,10 @@
                                             <td>
                                                 <div class="text" style="padding: 0 4em; text-align: center;">
                                                     <h2>
-                                                        ${object.mail_id.type_mail_id.title}
+                                                        ${object.get_mail_info(object.id, 'title')}
                                                     </h2>
                                                     <p>
+                                                        ${object.get_mail_info(object.id, 'description')}
                                                     </p>
                                                     <p>
                                                         <a href=""

@@ -8,6 +8,7 @@ class MailMailInherit(models.Model):
      _inherit = 'mail.mail'
 
      type_mail_id = fields.Many2one('devinsider_api.type_mail', string="Mail type")
+     user_mail_id = fields.Many2one('devinsider_api.compte', string="User mail")
 
 
 class devinsider_type_mail(models.Model):

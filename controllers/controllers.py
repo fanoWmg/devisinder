@@ -54,7 +54,6 @@ class DevinsiderApi(http.Controller):
             if not mail_has_sent:
                 message = "message not sent"
             else:
-                print(">>>>>>>>>>>>>>", mail_has_sent)
                 list_mail_id = []
                 mail_obj = http.request.env['mail.mail'].search([('email_to', '=', user_name)])
                 for mail in mail_obj:
@@ -62,6 +61,7 @@ class DevinsiderApi(http.Controller):
 
                 mail_obj = http.request.env['mail.mail']
                 mail_obj.browse(max(list_mail_id)).write({
+                    'user_mail_id': compte.id,
                     'type_mail_id': type_mail.id,
                     'subject': mail_template_obj.subject,
                     'body_html': mail_template_obj.body_html,
@@ -96,7 +96,6 @@ class DevinsiderApi(http.Controller):
                                                                                               force_send=True,
                                                                                               raise_exception=True,
                                                                                               email_values=email_values)
-        print("see mail==========>", mail_sent)
         if mail_sent:
 
             mail_obj.browse(max(list_mail_id)).write({
@@ -106,7 +105,6 @@ class DevinsiderApi(http.Controller):
             })
             message = "mail has sent"
         else:
-            print(">>>>>>>>>>>>>> else", mail_sent)
             message = "mail not sent"
 
         headers = {'Content-Type': 'application/json'}
