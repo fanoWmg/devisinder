@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="data_send_mail_for_create_compte" model="devinsider_api.type_mail">
+            <field name="name">Create compte</field>
+            <field name="title">Welcome</field>
+            <field name="mail_desciption">To activate your compte on Devinsider, clique on "Activate my compte"</field>
+        </record>
+        <record id="data_send_mail_for_password_reset" model="devinsider_api.type_mail">
+            <field name="name">Password reset</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="devinsider_api.action_window">
+            <field name="name">devinsider Mail</field>
+            <field name="res_model">devinsider_api.compte</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="devinsider_api.compte_list">
+            <field name="name">devinsider list mail</field>
+            <field name="model">devinsider_api.compte</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="user_name"/>
+                    <field name="email_pro"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="devinsider_api.compte_form">
+            <field name="name">devinsider form</field>
+            <field name="model">devinsider_api.compte</field>
+            <field name="arch" type="xml">
+                <form string="Mail">
+                    <sheet>
+                       <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="list_user_mail" icon="fa-mail-reply-all" type="object">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="number_mail"/></span>
+                                    <span class="o_stat_text"> Mail</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="user_name"/>
+                            </group>
+                            <group>
+                                <field name="email_pro"/>
+                                <field name="phone_number"/>
+                                <field name="verified_professional"/>
+                                <field name="message_text"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="devinsider_api.compte_search" model="ir.ui.view">
+            <field name="name">Devinsider Search</field>
+            <field name="model">devinsider_api.compte</field>
+            <field name="arch" type="xml">
+                <search string="Devinsider Search">
+                    <filter string="Become pro" name="email_pro" domain="[('email_pro', '!=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <menuitem name="Devinsider API" id="devinsider_api.menu_root"/>
+        <menuitem name="Devisinder mail" id="devinsider_api.compte" parent="devinsider_api.menu_root"
+                  action="devinsider_api.action_window"/>
+
+    </data>
+</odoo>
