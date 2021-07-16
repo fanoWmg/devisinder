@@ -38,17 +38,12 @@ class devinsider_api(models.Model):
         }
 
     def get_mail_info(self, user_name_id, detail):
-        mail_list = []
-        res = ""
-        mail_obj = self.env['mail.mail']
-        mail = mail_obj.search([('user_mail_id', '=', user_name_id)])
-        for m in mail:
-            mail_list.append(m.id)
-        max_id_mail_user = max(mail_list)
-        type_mail = mail_obj.browse(max_id_mail_user).mapped('type_mail_id')
-        for t in type_mail:
-           if detail == 'title':
-                res = t.title
-           if detail == 'description':
-               res = t.mail_desciption
+        res = "tsisy"
+        type_mail_obj = self.env['devinsider_api.type_mail']
+        last_mail = self.env['devinsider_api.mail_backup'].search([('user_mail_id', '=', user_name_id)],
+                                                                  order='user_mail_id desc', limit=1)
+        if detail == 'title':
+            res = type_mail_obj.browse(last_mail.type_mail_id).title
+        if detail == 'description':
+           res = type_mail_obj.browse(last_mail.type_mail_id).mail_desciption
         return res

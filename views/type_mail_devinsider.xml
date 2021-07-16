@@ -37,7 +37,7 @@
                 </form>
             </field>
         </record>
-        <menuitem name="setting" id="devinsider_api.type_mail_menu" parent="devinsider_api.menu_root"
+        <menuitem name="Setting" id="devinsider_api.type_mail_menu" parent="devinsider_api.menu_root"
                   action="devinsider_api._type_mail_action_window"/>
 
     </data>

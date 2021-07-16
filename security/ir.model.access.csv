@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_devinsider_api_compte,access_devinsider_api_compte,model_devinsider_api_compte,base.group_user,1,1,1,1
 access_devinsider_api_type_mail,access_devinsider_api_type_mail,model_devinsider_api_type_mail,base.group_user,1,1,1,1
+access_devinsider_api_mail_backup,access_devinsider_api_mail_backup,model_devinsider_api_mail_backup,base.group_user,1,1,1,1

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import http
 from odoo.http import request, Response
+from datetime import datetime
+
 
 import json
 
@@ -26,47 +28,35 @@ class DevinsiderApi(http.Controller):
     def create_compte(self, user_name, **k):
         message = ""
         headers = {'Content-Type': 'application/json'}
-        devinsider_obj = http.request.env['devinsider_api.compte']
-        mail_template_obj = http.request.env.ref('devinsider_api.mail_template_user_signup_account_created_devinsider')
-        type_mail = http.request.env.ref('devinsider_api.data_send_mail_for_create_compte')
-        if mail_template_obj:
-            login_exist = devinsider_obj.search([('user_name', '=', user_name)])
-            if not login_exist:
-                devinsider_obj.sudo().create({
-                    'user_name': user_name,
-                    'mail_template_id': mail_template_obj.id,
-                })
-            compte = devinsider_obj.search([('user_name', '=', user_name)], limit=1)
-            email_values = {
-                'email_to': user_name
-            }
-            # disable auto delete mail
-            mail_template_obj.write({
-                'auto_delete': False,
+        devinsider_obj = request.env['devinsider_api.compte']
+        mail_template_obj = request.env.ref('devinsider_api.mail_template_user_signup_account_created_devinsider')
+        type_mail = request.env.ref('devinsider_api.data_send_mail_for_create_compte')
+        login_exist = devinsider_obj.search([('user_name', '=', user_name)])
 
+        if not login_exist:
+            devinsider_obj.sudo().create({
+                'user_name': user_name,
+                'mail_template_id': mail_template_obj.id,
             })
+        compte = devinsider_obj.search([('user_name', '=', user_name)], limit=1)
+        print("ccccccccconte", compte)
 
-            # sent mail
-            mail_has_sent = mail_template_obj.with_context(lang=http.request.env.user.lang).send_mail(compte.id,
-                                                                                                      force_send=True,
-                                                                                                      raise_exception=True,
-                                                                                                      email_values=email_values)
-            if not mail_has_sent:
-                message = "message not sent"
-            else:
-                list_mail_id = []
-                mail_obj = http.request.env['mail.mail'].search([('email_to', '=', user_name)])
-                for mail in mail_obj:
-                    list_mail_id.append(mail.id)
+        request.env['devinsider_api.mail_backup'].sudo().create({
+            'name': datetime.now(),
+            'user_mail_id': compte.id,
+            'type_mail_id': type_mail.id,
+        })
+        email_values = {
+            'email_to': user_name,
+            'user_mail_id': compte.id,
+            'type_mail_id': type_mail.id,
+        }
+        mail_template_obj.write({'auto_delete': False})
+        mail_template_obj.with_context(lang=http.request.env.user.lang).send_mail(compte.id,
+                                                                              force_send=True,
+                                                                              raise_exception=True,
+                                                                              email_values=email_values)
 
-                mail_obj = http.request.env['mail.mail']
-                mail_obj.browse(max(list_mail_id)).write({
-                    'user_mail_id': compte.id,
-                    'type_mail_id': type_mail.id,
-                    'subject': mail_template_obj.subject,
-                    'body_html': mail_template_obj.body_html,
-
-                })
 
         result = {
             'message': message,
