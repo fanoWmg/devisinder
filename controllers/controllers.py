@@ -26,7 +26,6 @@ class DevinsiderApi(http.Controller):
 
     @http.route('/devinsider_api/create_compte', auth="public", type='http')
     def create_compte(self, user_name, **k):
-        message = ""
         headers = {'Content-Type': 'application/json'}
         devinsider_obj = request.env['devinsider_api.compte']
         mail_template_obj = request.env.ref('devinsider_api.mail_template_user_signup_account_created_devinsider')
@@ -39,7 +38,6 @@ class DevinsiderApi(http.Controller):
                 'mail_template_id': mail_template_obj.id,
             })
         compte = devinsider_obj.search([('user_name', '=', user_name)], limit=1)
-        print("ccccccccconte", compte)
 
         request.env['devinsider_api.mail_backup'].sudo().create({
             'name': datetime.now(),
@@ -51,11 +49,16 @@ class DevinsiderApi(http.Controller):
             'user_mail_id': compte.id,
             'type_mail_id': type_mail.id,
         }
-        mail_template_obj.write({'auto_delete': False})
-        mail_template_obj.with_context(lang=http.request.env.user.lang).send_mail(compte.id,
-                                                                              force_send=True,
-                                                                              raise_exception=True,
-                                                                              email_values=email_values)
+        try:
+            mail_template_obj.write({'auto_delete': False})
+            mail_template_obj.with_context(lang=http.request.env.user.lang).send_mail(compte.id,
+                                                                                  force_send=True,
+                                                                                  raise_exception=True,
+                                                                                  email_values=email_values)
+            message = "email is send"
+        except:
+            message = "email not send"
+
 
 
         result = {
