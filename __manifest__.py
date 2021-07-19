@@ -27,6 +27,7 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/type_mail_devinsider.xml',
+        'views/ir_mail_server_view_inherit.xml',
         'data/template_mail_create_compte.xml',
         'data/action_send_mail_data.xml',
 

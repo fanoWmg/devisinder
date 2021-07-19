@@ -51,7 +51,8 @@ class DevinsiderApi(http.Controller):
             'type_mail_id': type_mail.id,
         }
         try:
-            mail_template_obj.write({'auto_delete': False})
+            mail_server = request.env['ir.mail_server'].search([('is_devinsider_out_going', '=', True)])
+            mail_template_obj.write({'auto_delete': False, 'mail_server_id': mail_server.id})
             mail_template_obj.with_context(lang=http.request.env.user.lang).send_mail(compte.id,
                                                                                   force_send=True,
                                                                                   raise_exception=True,

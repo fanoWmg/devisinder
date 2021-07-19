@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ir_mail_server_view_form_inherit" model="ir.ui.view">
+            <field name="name">ir.mail.server.inherit.view.form</field>
+            <field name="model">ir.mail_server</field>
+            <field name="inherit_id" ref="base.ir_mail_server_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="is_devinsider_out_going"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>
