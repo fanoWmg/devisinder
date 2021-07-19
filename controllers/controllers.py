@@ -24,7 +24,7 @@ class DevinsiderApi(http.Controller):
         }
         return Response(json.dumps(result), headers=headers)
 
-    @http.route('/devinsider_api/create_compte', auth="public", type='http')
+    @http.route('/devinsider_api/create_compte', auth="user", type='http')
     def create_compte(self, user_name, **k):
         headers = {'Content-Type': 'application/json'}
         devinsider_obj = request.env['devinsider_api.compte']
@@ -36,6 +36,7 @@ class DevinsiderApi(http.Controller):
             devinsider_obj.sudo().create({
                 'user_name': user_name,
                 'mail_template_id': mail_template_obj.id,
+                #''
             })
         compte = devinsider_obj.search([('user_name', '=', user_name)], limit=1)
 

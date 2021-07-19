@@ -5,7 +5,7 @@
             <field name="name">Devinsider: create compte</field>
             <field name="model_id" ref="devinsider_api.model_devinsider_api_compte"/>
             <field name="subject">Mail to Create Compte</field>
-            <field name="email_from">&lt;${(user.email) | safe}&gt;</field>
+            <field name="email_from">fanomezantsoa@wylog.com</field>
             <field name="email_to">${object.email | safe}</field>
             <field name="auto_delete" eval="False"/>
             <field name="body_html" type="html">
