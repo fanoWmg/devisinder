@@ -19,7 +19,7 @@ class Mailbackup(models.Model):
     _name = 'devinsider_api.mail_backup'
 
     name = fields.Datetime('Name')
-    user_mail_id = fields.Integer('user_mail_id')
+    user_mail_id = fields.Many2one('devinsider_api.compte', string='user_mail_id')
     type_mail_id = fields.Integer('type_mail_id')
 
 

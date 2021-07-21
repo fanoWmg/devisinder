@@ -41,9 +41,10 @@ class devinsider_api(models.Model):
         res = "tsisy"
         type_mail_obj = self.env['devinsider_api.type_mail']
         last_mail = self.env['devinsider_api.mail_backup'].search([('user_mail_id', '=', user_name_id)],
-                                                                  order='user_mail_id desc', limit=1)
+                                                                  order="id desc", limit=1)
+        print(last_mail)
         if detail == 'title':
             res = type_mail_obj.browse(last_mail.type_mail_id).title
         if detail == 'description':
-           res = type_mail_obj.browse(last_mail.type_mail_id).mail_desciption
+            res = type_mail_obj.browse(last_mail.type_mail_id).mail_desciption
         return res

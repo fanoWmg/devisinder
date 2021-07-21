@@ -4,10 +4,19 @@
         <record id="data_send_mail_for_create_compte" model="devinsider_api.type_mail">
             <field name="name">Create compte</field>
             <field name="title">Welcome</field>
-            <field name="mail_desciption">To activate your compte on Devinsider, clique on "Activate my compte"</field>
+            <field name="mail_desciption">Thank you for registering! Please check your inbox for the confirmation email
+                we have sent you.
+            </field>
         </record>
         <record id="data_send_mail_for_password_reset" model="devinsider_api.type_mail">
-            <field name="name">Password reset</field>
+            <field name="name">Reset password</field>
+            <field name="title">Reset password</field>
+            <field name="mail_desciption">Reset your password to protect your account</field>
+        </record>
+        <record id="data_send_mail_for_verified_pro" model="devinsider_api.type_mail">
+            <field name="name">verified pro</field>
+            <field name="title">verified pro</field>
+            <field name="mail_desciption">Become a verified Professional</field>
         </record>
     </data>
 </odoo>
