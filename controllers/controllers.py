@@ -6,6 +6,10 @@ from datetime import datetime
 
 import json
 
+DB = "devisinder"
+LOGIN = "admin"
+PSWD = "admin1234"
+
 
 class DevinsiderApi(http.Controller):
 
@@ -22,7 +26,7 @@ class DevinsiderApi(http.Controller):
 
     @http.route('/devinsider_api/create_compte', auth="public", type='http')
     def create_compte(self, user_name, **k):
-        request.session.authenticate("devisinder", "admin", "admin1234")
+        request.session.authenticate(DB, LOGIN, PSWD)
         headers = {'Content-Type': 'application/json'}
         mail_template_obj = request.env.ref('devinsider_api.mail_template_user_signup_account_created_devinsider')
         type_mail = request.env.ref('devinsider_api.data_send_mail_for_create_compte')
@@ -49,7 +53,7 @@ class DevinsiderApi(http.Controller):
 
     @http.route('/devinsider_api/reset_password', auth="public", type='http')
     def reset_password(self, user_name, **k):
-        request.session.authenticate("devisinder", "admin", "admin1234")
+        request.session.authenticate(DB, LOGIN, PSWD)
         headers = {'Content-Type': 'application/json'}
         devinsider_obj = request.env['devinsider_api.compte']
         mail_template_obj = request.env.ref('devinsider_api.mail_template_for_reset_password')
@@ -97,7 +101,7 @@ class DevinsiderApi(http.Controller):
 
     @http.route('/devinsider_api/become_pro', type='json', auth="public")
     def become_pro(self, user_name, name, phone_number, message_text, **k):
-        request.session.authenticate("devisinder", "admin", "admin1234")
+        request.session.authenticate(DB, LOGIN, PSWD)
         mail_template_obj = request.env.ref('devinsider_api.mail_template_user_verified_pro')
         type_mail = request.env.ref('devinsider_api.data_send_mail_for_verified_pro')
         compte_obj = http.request.env['devinsider_api.compte'].search([('user_name', '=', user_name)])
