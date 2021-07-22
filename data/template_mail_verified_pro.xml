@@ -5,8 +5,7 @@
             <field name="name">Devinsider: verified pro</field>
             <field name="model_id" ref="devinsider_api.model_devinsider_api_compte"/>
             <field name="subject">verified pro</field>
-            <!--field name="email_from">fanomezantsoa@wylog.com</field-->
-            <field name="email_from">restestest1234@gmail.com</field>
+            <field name="email_from">fanomezantsoa@wylog.com</field>
             <field name="email_to">${object.email | safe}</field>
             <field name="auto_delete" eval="False"/>
             <field name="body_html" type="html">

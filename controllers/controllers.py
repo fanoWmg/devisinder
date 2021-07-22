@@ -114,13 +114,9 @@ class DevinsiderApi(http.Controller):
         except:
             message = "email not send"
 
-        result = {
-            'message': message,
-            'data': {},
-            'error': {},
-            'meta': {},
+        return {
+            'message': message
         }
-        return Response(json.dumps(result), headers=headers)
 
     @http.route('/devinsider_api/update_mail', type='http', auth="user")
     def update_mail(self, compte_id, new_email, **k):
@@ -144,9 +140,9 @@ class DevinsiderApi(http.Controller):
         }
         return Response(json.dumps(result), headers=headers)
 
-    @http.route('/devinsider_api/become_pro_with_mail_pro', type='http', auth="public")
-    def become_pro_with_mail_pro(self, user_name, name, phone_number, message_text, **k):
-        request.session.authenticate("base64", "admin", "admin")
+    @http.route('/devinsider_api/become_pro', type='json', auth="public")
+    def become_pro(self, user_name, name, phone_number, message_text, **k):
+        request.session.authenticate("devisinder", "admin", "admin1234")
         mail_template_obj = request.env.ref('devinsider_api.mail_template_user_verified_pro')
         type_mail = request.env.ref('devinsider_api.data_send_mail_for_verified_pro')
         compte_obj = http.request.env['devinsider_api.compte'].search([('user_name', '=', user_name)])
@@ -167,6 +163,11 @@ class DevinsiderApi(http.Controller):
             })
 
         try:
+            request.env['devinsider_api.mail_backup'].sudo().create({
+                'name': datetime.now(),
+                'user_mail_id': compte_obj.id,
+                'type_mail_id': type_mail.id,
+            })
             email_values = {
                 'email_to': user_name,
                 'user_mail_id': compte_obj.id,
@@ -180,17 +181,22 @@ class DevinsiderApi(http.Controller):
                                                                                               email_values=email_values)
 
             message = "successful save mail pro"
+            status = 200
         except:
             message = "mail for mail pro not send"
+            status = 400
 
-        headers = {'Content-Type': 'application/json'}
-        result = {
+        #headers = {'Content-Type': 'application/json'}
+        # result = {
+        #     'message': message,
+        #     'data': {},
+        #     'error': {},
+        #     'meta': {},
+        # }
+        return {
             'message': message,
-            'data': {},
-            'error': {},
-            'meta': {},
+            'status': status
         }
-        return Response(json.dumps(result), headers=headers)
 
     @http.route('/devinsider_api/become_pro_with_mail_normal', type='http', auth="user")
     def become_pro_with_mail_normal(self, compte_id, phone_number, email_pro, message_text, verified_professional):
