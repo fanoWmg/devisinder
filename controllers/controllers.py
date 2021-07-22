@@ -17,24 +17,14 @@ class DevinsiderApi(http.Controller):
         except:
             status = 400
         return {
-            'status':status
+            'status': status
         }
 
-    @http.route('/devinsider_api/get_session_info', type='json', auth="none")
-    def get_session_info(self):
-
-        a = request.session.check_security()
-        a
-        print(a)
-
-        request.uid = request.session.uid
-        request.disable_db = False
-        return request.env['ir.http'].session_info()
-
+    
 
     @http.route('/devinsider_api/create_compte', auth="public", type='http')
     def create_compte(self, user_name, **k):
-        request.session.authenticate("base64", "admin", "admin")
+        request.session.authenticate("devisinder", "admin", "admin1234")
         headers = {'Content-Type': 'application/json'}
         devinsider_obj = request.env['devinsider_api.compte']
         mail_template_obj = request.env.ref('devinsider_api.mail_template_user_signup_account_created_devinsider')
@@ -45,8 +35,8 @@ class DevinsiderApi(http.Controller):
             devinsider_obj.sudo().create({
                 'user_name': user_name,
                 'mail_template_id': mail_template_obj.id,
-                #''
             })
+
         compte = devinsider_obj.search([('user_name', '=', user_name)], limit=1)
 
         request.env['devinsider_api.mail_backup'].sudo().create({
@@ -67,21 +57,20 @@ class DevinsiderApi(http.Controller):
                                                                                   raise_exception=True,
                                                                                   email_values=email_values)
             message = "email is send"
+            status = 200
         except:
             message = "email not send"
-
-
+            status = 400
 
         result = {
             'message': message,
-            'data': {},
-            'error': {},
-            'meta': {},
+            'status': status,
         }
         return Response(json.dumps(result), headers=headers)
 
-    @http.route('/devinsider_api/reset_password', auth="user", type='http')
+    @http.route('/devinsider_api/reset_password', auth="public", type='http')
     def reset_password(self, user_name, **k):
+        request.session.authenticate("devisinder", "admin", "admin1234")
         headers = {'Content-Type': 'application/json'}
         devinsider_obj = request.env['devinsider_api.compte']
         mail_template_obj = request.env.ref('devinsider_api.mail_template_for_reset_password')
@@ -111,12 +100,16 @@ class DevinsiderApi(http.Controller):
                                                                                       raise_exception=True,
                                                                                       email_values=email_values)
             message = "email is send for reset password"
+            status = 200
         except:
             message = "email not send"
+            status = 400
 
-        return {
-            'message': message
+        result = {
+            'message': message,
+            'status': status,
         }
+        return Response(json.dumps(result), headers=headers)
 
     @http.route('/devinsider_api/update_mail', type='http', auth="user")
     def update_mail(self, compte_id, new_email, **k):
