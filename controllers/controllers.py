@@ -20,42 +20,21 @@ class DevinsiderApi(http.Controller):
             'status': status
         }
 
-    
-
     @http.route('/devinsider_api/create_compte', auth="public", type='http')
     def create_compte(self, user_name, **k):
         request.session.authenticate("devisinder", "admin", "admin1234")
         headers = {'Content-Type': 'application/json'}
-        devinsider_obj = request.env['devinsider_api.compte']
         mail_template_obj = request.env.ref('devinsider_api.mail_template_user_signup_account_created_devinsider')
         type_mail = request.env.ref('devinsider_api.data_send_mail_for_create_compte')
+        devinsider_obj = request.env['devinsider_api.compte']
         login_exist = devinsider_obj.search([('user_name', '=', user_name)])
-
         if not login_exist:
             devinsider_obj.sudo().create({
                 'user_name': user_name,
                 'mail_template_id': mail_template_obj.id,
             })
-
-        compte = devinsider_obj.search([('user_name', '=', user_name)], limit=1)
-
-        request.env['devinsider_api.mail_backup'].sudo().create({
-            'name': datetime.now(),
-            'user_mail_id': compte.id,
-            'type_mail_id': type_mail.id,
-        })
-        email_values = {
-            'email_to': user_name,
-            'user_mail_id': compte.id,
-            'type_mail_id': type_mail.id,
-        }
         try:
-            mail_server = request.env['ir.mail_server'].search([('is_devinsider_out_going', '=', True)])
-            mail_template_obj.write({'auto_delete': False, 'mail_server_id': mail_server.id})
-            mail_template_obj.with_context(lang=http.request.env.user.lang).send_mail(compte.id,
-                                                                                  force_send=True,
-                                                                                  raise_exception=True,
-                                                                                  email_values=email_values)
+            devinsider_obj.send_mail_data(mail_template_obj, user_name, type_mail)
             message = "email is send"
             status = 200
         except:
@@ -80,25 +59,8 @@ class DevinsiderApi(http.Controller):
             devinsider_obj.sudo().create({
                 'user_name': user_name,
             })
-        compte = devinsider_obj.search([('user_name', '=', user_name)], limit=1)
-        request.env['devinsider_api.mail_backup'].sudo().create({
-            'name': datetime.now(),
-            'user_mail_id': compte.id,
-            'type_mail_id': type_mail.id,
-        })
-        email_values = {
-            'email_to': user_name,
-            'user_mail_id': compte.id,
-            'type_mail_id': type_mail.id,
-        }
-
         try:
-            mail_server = request.env['ir.mail_server'].search([('is_devinsider_out_going', '=', True)])
-            mail_template_obj.write({'auto_delete': False, 'mail_server_id': mail_server.id})
-            mail_template_obj.with_context(lang=http.request.env.user.lang).send_mail(compte.id,
-                                                                                      force_send=True,
-                                                                                      raise_exception=True,
-                                                                                      email_values=email_values)
+            devinsider_obj.send_mail_data(mail_template_obj, user_name, type_mail)
             message = "email is send for reset password"
             status = 200
         except:
@@ -139,6 +101,7 @@ class DevinsiderApi(http.Controller):
         mail_template_obj = request.env.ref('devinsider_api.mail_template_user_verified_pro')
         type_mail = request.env.ref('devinsider_api.data_send_mail_for_verified_pro')
         compte_obj = http.request.env['devinsider_api.compte'].search([('user_name', '=', user_name)])
+        devinsider_obj = request.env['devinsider_api.compte']
         if compte_obj:
             compte_obj.write({
                 'email_pro': user_name,
@@ -154,38 +117,13 @@ class DevinsiderApi(http.Controller):
                 'phone_number': phone_number,
                 'message_text': message_text,
             })
-
         try:
-            request.env['devinsider_api.mail_backup'].sudo().create({
-                'name': datetime.now(),
-                'user_mail_id': compte_obj.id,
-                'type_mail_id': type_mail.id,
-            })
-            email_values = {
-                'email_to': user_name,
-                'user_mail_id': compte_obj.id,
-                'type_mail_id': type_mail.id,
-            }
-            mail_server = request.env['ir.mail_server'].search([('is_devinsider_out_going', '=', True)])
-            mail_template_obj.write({'auto_delete': False, 'mail_server_id': mail_server.id})
-            mail_template_obj.with_context(lang=http.request.env.user.lang).send_mail(compte_obj.id,
-                                                                                              force_send=True,
-                                                                                              raise_exception=True,
-                                                                                              email_values=email_values)
-
+            devinsider_obj.send_mail_data(mail_template_obj, user_name, type_mail)
             message = "successful save mail pro"
             status = 200
         except:
             message = "mail for mail pro not send"
             status = 400
-
-        #headers = {'Content-Type': 'application/json'}
-        # result = {
-        #     'message': message,
-        #     'data': {},
-        #     'error': {},
-        #     'meta': {},
-        # }
         return {
             'message': message,
             'status': status

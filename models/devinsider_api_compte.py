@@ -2,6 +2,7 @@
 
 
 from odoo import models, fields, api
+from datetime import datetime
 
 
 class devinsider_api(models.Model):
@@ -18,6 +19,26 @@ class devinsider_api(models.Model):
     message_text = fields.Text(string="Text message")
     verified_professional = fields.Boolean(string="verified profesional")
     number_mail = fields.Integer(string="Number mail", compute="_compute_number_mail")
+
+    def send_mail_data(self, mail_template_obj, user_name, type_mail):
+        devinsider_obj = self.env['devinsider_api.compte']
+        compte = devinsider_obj.search([('user_name', '=', user_name)], limit=1)
+        self.env['devinsider_api.mail_backup'].sudo().create({
+            'name': datetime.now(),
+            'user_mail_id': compte.id,
+            'type_mail_id': type_mail.id,
+        })
+        email_values = {
+            'email_to': user_name,
+            'user_mail_id': compte.id,
+            'type_mail_id': type_mail.id,
+        }
+        mail_server = self.env['ir.mail_server'].search([('is_devinsider_out_going', '=', True)])
+        mail_template_obj.write({'auto_delete': False, 'mail_server_id': mail_server.id})
+        mail_template_obj.with_context(lang=self.env.user.lang).send_mail(compte.id,
+                                                                                  force_send=True,
+                                                                                  raise_exception=True,
+                                                                                  email_values=email_values)
 
     @api.depends('user_name')
     def _compute_number_mail(self):
