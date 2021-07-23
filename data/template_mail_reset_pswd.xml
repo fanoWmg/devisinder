@@ -130,10 +130,7 @@
                     }
 
                     /*BUTTON*/
-                    .btn {
-                    padding: 5px 15px;
-                    display: inline-block;
-                    }
+
 
                     .btn.btn-white {
                     border-radius: 30px;
@@ -344,8 +341,9 @@
                                                     <p>
                                                         <a href="www.facebook.com"
                                                            class="btn btn-primary"
-                                                           style="background-color: #ff6600; height: 30px;width: 150px;color:white;">
-                                                            <span style="vertical-align:middle;">Activate my compte
+                                                           style="border-radius: 25px; padding: 0px 15px; display: inline-block; background-color: #ff6600; height: 30px;width: 150px;color:white;">
+                                                             <span style="vertical-align:middle; text-align:center">
+                                                                test
                                                             </span>
                                                         </a>
                                                     </p>
@@ -358,7 +356,7 @@
                             <!-- end tr -->
                             <tr>
                                 <td valign="top" class="bg_white"
-                                    style="padding: 1em 2.5em;background-color: #4f4f4f; border-bottom: 5px solid #ff6600">
+                                    style="padding: 1em 2.5em;background-color: #4f4f4f; border-bottom: 5px solid;">
                                     <table role="presentation" border="0" cellpadding="0" cellspacing="0"
                                            width="100%">
                                         <tr>
