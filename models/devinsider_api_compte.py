@@ -8,17 +8,17 @@ from datetime import datetime
 class devinsider_api(models.Model):
     _name = 'devinsider_api.compte'
 
-    name = fields.Char(string="Name")
-    user_name = fields.Char(string="Email")
-    email_pro = fields.Char(string="Email pro")
+    name = fields.Char(string="Name", readonly=True)
+    user_name = fields.Char(string="Email",  readonly=True)
+    email_pro = fields.Char(string="Email pro",  readonly=True)
     company_id = fields.Many2one(string="Company")
     mail_template_id = fields.Many2one('mail.template', string="Mail template")
 
     # become pro
-    phone_number = fields.Char(string="Phone number")
-    message_text = fields.Text(string="Text message")
-    verified_professional = fields.Boolean(string="verified profesional")
-    number_mail = fields.Integer(string="Number mail", compute="_compute_number_mail")
+    phone_number = fields.Char(string="Phone number", readonly=True)
+    message_text = fields.Text(string="Text message", readonly=True)
+    verified_professional = fields.Boolean(string="verified profesional",  readonly=True)
+    number_mail = fields.Integer(string="Number mail", compute="_compute_number_mail",  readonly=True)
 
     def send_mail_data(self, mail_template_obj, user_name, type_mail):
         devinsider_obj = self.env['devinsider_api.compte']
@@ -28,6 +28,7 @@ class devinsider_api(models.Model):
             'user_mail_id': compte.id,
             'type_mail_id': type_mail.id,
         })
+        print(user_name)
         email_values = {
             'email_to': user_name,
             'user_mail_id': compte.id,

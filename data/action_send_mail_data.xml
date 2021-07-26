@@ -18,5 +18,10 @@
             <field name="title">verified pro</field>
             <field name="mail_desciption">Become a verified Professional</field>
         </record>
+        <record id="data_send_mail_for_update_mail" model="devinsider_api.type_mail">
+            <field name="name">update mail</field>
+            <field name="title">update mail</field>
+            <field name="mail_desciption">Clique to the button to update the maail</field>
+        </record>
     </data>
 </odoo>

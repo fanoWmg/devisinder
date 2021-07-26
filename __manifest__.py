@@ -33,6 +33,7 @@
         'data/action_send_mail_data.xml',
         'data/template_mail_reset_pswd.xml',
         'data/template_mail_verified_pro.xml',
+        'data/template_mail_update_mail.xml',
 
     ],
     # only loaded in demonstration mode

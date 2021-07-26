@@ -6,9 +6,15 @@ from datetime import datetime
 
 import json
 
-DB = "devisinder"
-LOGIN = "admin"
-PSWD = "admin1234"
+#test en dev
+DB = "crm"
+LOGIN = "arthur@mediadev.com"
+PSWD = "Qwerty789"
+
+ #test local
+#DB = "devisinder"
+#LOGIN = "admin"
+#PSWD = "admin1234"
 
 
 class DevinsiderApi(http.Controller):
@@ -77,25 +83,33 @@ class DevinsiderApi(http.Controller):
         }
         return Response(json.dumps(result), headers=headers)
 
-    @http.route('/devinsider_api/update_mail', type='http', auth="user")
-    def update_mail(self, compte_id, new_email, **k):
+    @http.route('/devinsider_api/update_mail', type='http', auth="public")
+    def update_mail(self, user_name, new_email, **k):
+        request.session.authenticate(DB, LOGIN, PSWD)
         headers = {'Content-Type': 'application/json'}
-        compte_obj = http.request.env['devinsider_api.compte'].search([('id', '=', int(compte_id))])
-        if compte_obj:
-            if compte_obj.email != new_email:
-                compte_obj.sudo().write({
-                    'email': new_email
-                })
-                message = "successful mail update!!"
-            else:
-                message = "mail already exist"
-        else:
-            message = "you have not account"
+        devinsider_obj = request.env['devinsider_api.compte']
+        mail_template_obj = request.env.ref('devinsider_api.update_mail_devinsider')
+        type_mail = request.env.ref('devinsider_api.data_send_mail_for_update_mail')
+        login_exist = devinsider_obj.search([('user_name', '=', user_name)])
+        if not login_exist:
+            devinsider_obj.sudo().create({
+                'user_name': user_name,
+            })
+        compte = devinsider_obj.search([('user_name', '=', user_name)])
+        compte.write({
+           'user_name': new_email,
+       })
+        try:
+            devinsider_obj.send_mail_data(mail_template_obj, new_email, type_mail)
+            message = "email is send for update_mail"
+            status = 200
+        except:
+            message = "email not send"
+            status = 400
+
         result = {
             'message': message,
-            'data': {},
-            'error': {},
-            'meta': {},
+            'status': status,
         }
         return Response(json.dumps(result), headers=headers)
 
