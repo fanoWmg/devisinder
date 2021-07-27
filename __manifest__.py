@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'web'],
+    'depends': ['base', 'mail', 'web', 'first_name_last_name_partner', 'crm'],
 
     # always loaded
     'data': [
