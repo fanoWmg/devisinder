@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="js assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script
+                        type="text/javascript"
+                        src="/path/filename.js">
+                </script>
+                <link
+                        href="/custom_module_name/static/src/css/filenmae.css"
+                        rel="stylesheet"
+                        type="text/css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

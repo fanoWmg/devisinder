@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'web', 'first_name_last_name_partner', 'crm'],
+    'depends': ['base', 'mail', 'web', 'crm'],
 
     # always loaded
     'data': [
@@ -28,6 +28,9 @@
         'views/views.xml',
         'views/type_mail_devinsider.xml',
         'views/ir_mail_server_view_inherit.xml',
+        'views/res_partner.xml',
+        'views/css_js_loader.xml',
+        'views/res_partner_view_inherit.xml',
 
         'data/template_mail_create_compte.xml',
         'data/action_send_mail_data.xml',
