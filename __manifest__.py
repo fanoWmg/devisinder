@@ -28,7 +28,7 @@
         'views/views.xml',
         'views/type_mail_devinsider.xml',
         'views/ir_mail_server_view_inherit.xml',
-        'views/res_partner.xml',
+        # 'views/res_partner.xml',
         'views/css_js_loader.xml',
         'views/res_partner_view_inherit.xml',
 

@@ -4,6 +4,7 @@
     background-color: #f1f1f1;
     margin-top: -25px;
     width: 106%;
+    height: 44px;
     margin-left: -33px;
 }
 
@@ -14,9 +15,9 @@
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 20px 16px;
     transition: 0.3s;
-    font-size: 17px;
+    font-size: 12px;
 }
 
 /* Change background color of buttons on hover */
@@ -38,7 +39,31 @@
 
 
 .o_form_view .oe_button_box_custom {
-    margin-left: -32px;
-    margin-right: -32px;
+    margin-left: 175px;
+    margin-right: 0px;
     margin-top: -44px;
+    width: 77%;
+    text-align: left;
+}
+
+.o_form_view .oe_button_box .btn.oe_stat_button {
+    color: #4c4c4c;
+    height: 44px;
+    width: 136px;
+    padding: 0 6px 0 0 !important;
+    text-align: left;
+    white-space: nowrap;
+    background-color: transparent;
+    opacity: 0.8;
+    border-radius: 0px;
+    margin-bottom: 0;
+}
+
+.cadre {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+.hidden_class{
+    display: none;
 }

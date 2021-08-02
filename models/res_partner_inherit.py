@@ -11,6 +11,7 @@ class ResPartnerInherit(models.Model):
     last_name = fields.Char(string="Last name")
 
 
+
     contact_category = fields.Selection([
         ('software_vendor', 'Software Vendor'),
         ('reseller', 'Reseller'),
@@ -90,13 +91,11 @@ class ResPartnerInherit(models.Model):
 
     @api.onchange('first_name', 'last_name')
     def onchange_first_last_name(self):
-        name = self.name
-        if self.company_type == 'person':
-            if self.first_name or self.last_name:
-                name_tab = [self.first_name or '', self.last_name or '']
-                name = ' '.join(name_tab)
-            else:
-                name = False
+        if self.first_name or self.last_name:
+            name_tab = [self.first_name or '', self.last_name or '']
+            name = ' '.join(name_tab)
+        else:
+            name = False
         self.name = name
 
     def create_partner_type_person(self, first_name, last_name, parent):
