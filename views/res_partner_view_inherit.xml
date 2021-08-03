@@ -289,7 +289,31 @@
                         </div>
 
                         <div id="mirror" class="tabcontent">
-
+                            <h1>
+                                <field name="di_name"/>
+                            </h1>
+                            <div class="cadre">
+                                <group>
+                                    <div class="o_horizontal_separator">Primary Information</div>
+                                    <field name="di_fistname"/>
+                                    <field name="di_lastname"/>
+                                    <field name="di_email_email_score"/>
+                                    <field name="di_email_hard_bounced"/>
+                                    <field name="di_email_soft_bounced"/>
+                                </group>
+                            </div>
+                            <group>
+                                <div class="o_horizontal_separator">Profile Overview</div>
+                                <field name="di_first_name_po"/>
+                                <field name="di_last_name_po"/>
+                                <field name="di_job_position"/>
+                                <field name="di_job_location"/>
+                                <field name="di_primary_email"/>
+                                <field name="di_work_email"/>
+                                <field name="di_phone"/>
+                                <field name="di_linkedin"/>
+                                <field name="di_about"/>
+                            </group>
                         </div>
                     </div>
                     <xpath expr="//div[@name='button_box']" position="attributes">

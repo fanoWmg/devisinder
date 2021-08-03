@@ -10,8 +10,8 @@ class ResPartnerInherit(models.Model):
     first_name = fields.Char(string="First name")
     last_name = fields.Char(string="Last name")
     email_score = fields.Boolean(string="Email Score")
-    email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
-    email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
+    email_hard_bounced = fields.Char(string="Email Hard Bounced")
+    email_soft_bounced = fields.Char(string="Email Soft Bounced")
     email_pro = fields.Char(string="Email")
     company_type = fields.Selection(string='Company Type',
                                     selection=[('person', 'Individual'), ('company', 'Company')],
@@ -72,9 +72,9 @@ class ResPartnerInherit(models.Model):
     ###### DI Mirror ######
 
     di_name = fields.Char(string='Name', readonly=True)
-    di_fistname = fields.Char(string='Firstname', readonly=True)
-    di_lastname = fields.Char(string='Larstname', readonly=True)
-    di_image_profil = fields.Binary(string='.', readonly=True)
+    di_fistname = fields.Char(string='First Name', readonly=True)
+    di_lastname = fields.Char(string='Last Name', readonly=True)
+    #di_image_profil = fields.Binary(string='.', readonly=True)
     di_job_position = fields.Char(string='Job position', readonly=True)
     di_city = fields.Char(string='City', readonly=True)
     di_country_id = fields.Many2one('res.country', 'Country', readonly=True)
@@ -83,6 +83,12 @@ class ResPartnerInherit(models.Model):
     di_phone = fields.Char(string='Phone', readonly=True)
     di_linkedin = fields.Char(string='Linkedin', readonly=True)
     di_about = fields.Text(string='About', readonly=True)
+    di_email_email_score = fields.Char(string="Email score")
+    di_email_hard_bounced = fields.Char(string="Email Hard Bounced")
+    di_email_soft_bounced = fields.Char(string="Email Soft Bounced")
+    di_first_name_po = fields.Char(string="First Name")
+    di_last_name_po = fields.Char(string="Last Name")
+    di_job_location = fields.Char(string="Location")
 
     @api.onchange('first_name', 'last_name')
     def onchange_first_last_name(self):
