@@ -9,6 +9,14 @@ class ResPartnerInherit(models.Model):
 
     first_name = fields.Char(string="First name")
     last_name = fields.Char(string="Last name")
+    email_score = fields.Boolean(string="Email Score")
+    email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
+    email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
+    email_pro = fields.Char(string="Email")
+    company_type = fields.Selection(string='Company Type',
+                                    selection=[('person', 'Individual'), ('company', 'Company')],
+                                    compute='_compute_company_type', inverse='_write_company_type', default='person')
+
 
 
 
@@ -29,7 +37,6 @@ class ResPartnerInherit(models.Model):
         string='Contact Status')
 
     job_position = fields.Char(string='Job Position')
-
     job_category = fields.Selection([
         ('executive_management', 'Executive Management'),
         ('finance_and_accounting', 'Finance and Accounting'),
@@ -59,35 +66,23 @@ class ResPartnerInherit(models.Model):
         ('other_dm', 'Other DM')],
         string='Job level')
 
-    linkedin = fields.Char(string='Linkedin')
 
     notes = fields.Text(string='Notes')
 
     ###### DI Mirror ######
 
-    di_name = fields.Char(string='Name')
-
-    di_fistname = fields.Char(string='Firstname')
-
-    di_lastname = fields.Char(string='Larstname')
-
-    di_image_profil = fields.Binary(string='.')
-
-    di_job_position = fields.Char(string='Job position')
-
-    di_city = fields.Char(string='City')
-
-    di_country_id = fields.Many2one('res.country', 'Country')
-
-    di_primary_email = fields.Char(string='Primary Email')
-
-    di_work_email = fields.Char(string='Work Email')
-
-    di_phone = fields.Char(string='Phone')
-
-    di_linkedin = fields.Char(string='Linkedin')
-
-    di_about = fields.Text(string='About')
+    di_name = fields.Char(string='Name', readonly=True)
+    di_fistname = fields.Char(string='Firstname', readonly=True)
+    di_lastname = fields.Char(string='Larstname', readonly=True)
+    di_image_profil = fields.Binary(string='.', readonly=True)
+    di_job_position = fields.Char(string='Job position', readonly=True)
+    di_city = fields.Char(string='City', readonly=True)
+    di_country_id = fields.Many2one('res.country', 'Country', readonly=True)
+    di_primary_email = fields.Char(string='Primary Email', readonly=True)
+    di_work_email = fields.Char(string='Work Email', readonly=True)
+    di_phone = fields.Char(string='Phone', readonly=True)
+    di_linkedin = fields.Char(string='Linkedin', readonly=True)
+    di_about = fields.Text(string='About', readonly=True)
 
     @api.onchange('first_name', 'last_name')
     def onchange_first_last_name(self):
