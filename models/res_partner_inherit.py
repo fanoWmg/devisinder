@@ -123,6 +123,45 @@ class ResPartnerInherit(models.Model):
         string="Amount of distinct Investors proactively contacted")
     di_list_investor_contacted = fields.Char(string="List of Investor contacted")
 
+    #company
+    company_lega_name = fields.Char(string="Company Lega Name")
+    hq_email = fields.Char(string="HQ Email")
+    horizontal_ids = fields.Many2many('devinsider.horizontal', 'name', string="Horizontal")
+    vertical_ids = fields.Many2many('devinsider.vertical', 'name', string="Vertical")
+    founded = fields.Char(string="Founded")
+    comp_company_type = fields.Char(string="Company Type")
+    contry = fields.Char(string="Contry(ies)")
+    comapany_size = fields.Char(string="Company Size")
+    pre_listed_comp_page_devinsider = fields.Char(string="Pre-listed Company Page on Devinsider")
+    active_comp_page = fields.Char(string="Active Company Page (Created or Claimed Ownership)")
+
+    phone_1 = fields.Char(string="Phone")
+    email_1 = fields.Char(string="Email")
+
+    street_2 = fields.Char()
+    street2_2 = fields.Char()
+    zip_2 = fields.Char(change_default=True)
+    city_2 = fields.Char()
+    state_id_2 = fields.Many2one("res.country.state", string='State', ondelete='restrict',
+                               domain="[('country_id', '=?', country_id)]")
+    country_id_2 = fields.Many2one('res.country', string='Country', ondelete='restrict')
+    phone_2 = fields.Char(string="Phone")
+    email_2 = fields.Char(string="Email")
+
+    street_3 = fields.Char()
+    street2_3 = fields.Char()
+    zip_3 = fields.Char(change_default=True)
+    city_3 = fields.Char()
+    state_id_3 = fields.Many2one("res.country.state", string='State', ondelete='restrict',
+                                 domain="[('country_id', '=?', country_id)]")
+    country_id_3 = fields.Many2one('res.country', string='Country', ondelete='restrict')
+    phone_3 = fields.Char(string="Phone") #mbola ts napotra
+    email_3 = fields.Char(string="Email")
+
+
+    #mirror company
+    
+
     @api.onchange('first_name', 'last_name')
     def onchange_first_last_name(self):
         if self.first_name or self.last_name:

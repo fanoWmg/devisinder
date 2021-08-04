@@ -45,6 +45,11 @@
                                     <group>
                                         <div class="o_horizontal_separator">Primary Information</div>
                                         <field name="contact_category"/>
+                                        <field name="company_name"
+                                               attrs="{'invisible':[('company_type','=','person')]}"/>
+                                        <field name="company_lega_name"
+                                               attrs="{'invisible':[('company_type','=','person')]}"/>
+                                        <field name="hq_email" attrs="{'invisible':[('company_type','=','person')]}"/>
                                         <field name="contact_status"/>
                                         <field name="first_name"
                                                attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
@@ -59,59 +64,131 @@
                                 </div>
                                 <group>
                                     <group>
-                                        <div class="o_horizontal_separator">Profile Overview</div>
-                                        <field name="job_position"/>
-                                        <field name="job_category"/>
-                                        <field name="job_level"/>
+                                        <div class="o_horizontal_separator">
+                                            <span attrs="{'invisible': [('company_type', '=', 'person')]}">About</span>
+                                            <span attrs="{'invisible': [('company_type', '=', 'company')]}">Profile
+                                                Overview
+                                            </span>
+                                        </div>
+                                        <field name="horizontal_ids"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"
+                                               widget="many2many_tags"/>
+                                        <field name="vertical_ids"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"
+                                               widget="many2many_tags"/>
+                                        <field name="founded"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                        <field name="company_name"
+                                               attrs="{'invisible':[('company_type','=','person')]}"/>
+                                        <field name="comp_company_type"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                        <field name="contry"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"
+                                        />
+                                        <field name="comapany_size"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"
+                                        />
+                                        <field name="job_position"
+                                               attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                        <field name="job_category"
+                                               attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                        <field name="job_level"
+                                               attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                                         <field name="type" groups="base.group_no_one"
                                                attrs="{'invisible': [('is_company','=', True)], 'readonly': [('user_ids', '!=', [])]}"/>
-                                        <label for="" name="address_name">
-                                            <b attrs="{'invisible': [('type', '!=', 'contact')]}">Company Address
+                                        <label for="" name="address_name"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}">
+                                            <b attrs="{'invisible': [('type', '!=', 'contact')]}">Address and Contact 1
                                             </b>
-                                            <b attrs="{'invisible': [('type', '!=', 'invoice')]}">Invoice Address
-                                            </b>
-                                            <b attrs="{'invisible': [('type', '!=', 'delivery')]}">Delivery
-                                                Address
-                                            </b>
-                                            <b attrs="{'invisible': [('type', '!=', 'other')]}">Other Address</b>
-                                            <b attrs="{'invisible': [('type', '!=', 'private')]}">Private Address
-                                            </b>
-                                            <b attrs="{'invisible': [('type', '!=', False)]}">Address</b>
                                         </label>
                                         <div class="o_address_format">
                                             <field name="street" placeholder="Street..." class="o_address_street"
-                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
                                             <field name="street2" placeholder="Street 2..." class="o_address_street"
-                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
                                             <field name="city" placeholder="City" class="o_address_city"
-                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
                                             <field name="state_id" class="o_address_state" placeholder="State"
                                                    options="{&quot;no_open&quot;: True}"
-                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"
                                                    context="{'country_id': country_id, 'zip': zip}"/>
                                             <field name="zip" placeholder="ZIP" class="o_address_zip"
-                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
                                             <field name="country_id" placeholder="Country" class="o_address_country"
                                                    options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
-                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
                                         </div>
-                                        <field name="vat" placeholder="e.g. BE0477472701"
-                                               attrs="{'readonly': [('parent_id','!=',False)]}"/>
+
+                                        <label for="" name="address_name"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}">
+                                            <b attrs="{'invisible': [('type', '!=', 'contact'), ('company_type', '=', 'person')]}">
+                                                Address and Contact 2
+                                            </b>
+                                        </label>
+                                        <div class="o_address_format">
+                                            <field name="street_2" placeholder="Street..." class="o_address_street"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                            <field name="street2_2" placeholder="Street 2..." class="o_address_street"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                            <field name="city_2" placeholder="City" class="o_address_city"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                            <field name="state_id_2" class="o_address_state" placeholder="State"
+                                                   options="{&quot;no_open&quot;: True}"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"
+                                                   context="{'country_id': country_id, 'zip': zip}"/>
+                                            <field name="zip_2" placeholder="ZIP" class="o_address_zip"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                            <field name="country_id_2" placeholder="Country" class="o_address_country"
+                                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                        </div>
+
+                                        <label for="" name="address_name"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}">
+                                            <b attrs="{'invisible': [('type', '!=', 'contact'), ('company_type', '=', 'person')]}">
+                                                Address and Contact 3
+                                            </b>
+                                        </label>
+                                        <div class="o_address_format">
+                                            <field name="street_3" placeholder="Street..." class="o_address_street"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                            <field name="street2_3" placeholder="Street 2..." class="o_address_street"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                            <field name="city_3" placeholder="City" class="o_address_city"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                            <field name="state_id_3" class="o_address_state" placeholder="State"
+                                                   options="{&quot;no_open&quot;: True}"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"
+                                                   context="{'country_id': country_id, 'zip': zip}"/>
+                                            <field name="zip_3" placeholder="ZIP" class="o_address_zip"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                            <field name="country_id_3" placeholder="Country" class="o_address_country"
+                                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                                                   attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': [('company_type', '=', 'person')]}"/>
+                                        </div>
+
+                                        <!-- <field name="vat" placeholder="e.g. BE0477472701"
+                                                attrs="{'readonly': [('parent_id','!=',False)]}"/>-->
+
                                     </group>
                                     <group>
                                         <div class="o_horizontal_separator">Contact information</div>
                                         <field name="contact_category"/>
                                         <field name="contact_status"/>
+                                        <field name="pre_listed_comp_page_devinsider" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                        <field name="active_comp_page" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
                                     </group>
                                 </group>
                                 <group>
                                     <field name="function" placeholder="e.g. Sales Director"
                                            attrs="{'invisible': [('is_company','=', True)]}"/>
-                                    <field name="phone" widget="phone"/>
-                                    <field name="mobile" widget="phone"/>
+                                    <field name="phone" widget="phone"
+                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                    <field name="mobile" widget="phone"
+                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                                     <field name="user_ids" invisible="1"/>
                                     <field name="email" widget="email" context="{'gravatar_image': True}"
-                                           attrs="{'required': [('user_ids','!=', [])]}"/>
+                                           attrs="{'required': [('user_ids','!=', [])], 'invisible': [('company_type', '=', 'company')]}"/>
                                     <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
                                     <field name="title" options="{&quot;no_open&quot;: True}"
                                            placeholder="e.g. Mister"
@@ -128,7 +205,8 @@
                                     </div>
                                     <field name="category_id" widget="many2many_tags"
                                            options="{'color_field': 'color', 'no_create_edit': True}"
-                                           placeholder="Tags..."/>
+                                           placeholder="Tags..."
+                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                                     <field name="notes"/>
 
 

@@ -67,4 +67,7 @@
 .hidden_class{
     display: none;
 }
+.left_margin{
+    margin-left: 0px;
+}
 
