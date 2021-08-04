@@ -22,7 +22,7 @@
 
 /* Change background color of buttons on hover */
 .tab_ button:hover {
-    background-color: #ddd;
+    background-color: #dddddd;
 }
 
 /* Create an active/current tab_link class */
@@ -67,3 +67,4 @@
 .hidden_class{
     display: none;
 }
+

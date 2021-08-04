@@ -17,9 +17,6 @@ class ResPartnerInherit(models.Model):
                                     selection=[('person', 'Individual'), ('company', 'Company')],
                                     compute='_compute_company_type', inverse='_write_company_type', default='person')
 
-
-
-
     contact_category = fields.Selection([
         ('software_vendor', 'Software Vendor'),
         ('reseller', 'Reseller'),
@@ -66,7 +63,6 @@ class ResPartnerInherit(models.Model):
         ('other_dm', 'Other DM')],
         string='Job level')
 
-
     notes = fields.Text(string='Notes')
 
     ###### DI Mirror ######
@@ -74,7 +70,7 @@ class ResPartnerInherit(models.Model):
     di_name = fields.Char(string='Name', readonly=True)
     di_fistname = fields.Char(string='First Name', readonly=True)
     di_lastname = fields.Char(string='Last Name', readonly=True)
-    #di_image_profil = fields.Binary(string='.', readonly=True)
+    # di_image_profil = fields.Binary(string='.', readonly=True)
     di_job_position = fields.Char(string='Job position', readonly=True)
     di_city = fields.Char(string='City', readonly=True)
     di_country_id = fields.Many2one('res.country', 'Country', readonly=True)
@@ -89,6 +85,43 @@ class ResPartnerInherit(models.Model):
     di_first_name_po = fields.Char(string="First Name")
     di_last_name_po = fields.Char(string="Last Name")
     di_job_location = fields.Char(string="Location")
+
+    di_contact_category = fields.Char(string="Contact Category")
+    di_contact_status = fields.Char(string="Contact Status")
+    di_date_signup = fields.Date(string="Date of Sign-Up")
+    di_date_last_login = fields.Date(string="Date of the last Log-In")
+    di_active_company_page = fields.Char(string="Active Company Page (Created, affiliated or Claimed Ownership)")
+    di_date_creation_claimed_own = fields.Date(string="Date of Creation/Claimed Ownership")
+    # Mirror Comminity
+    di_discussion_categ_followed = fields.Char(string="Discussion Categorie Followed")
+    di_label_followed = fields.Char(string="Label Followed")
+    di_date_last_forum_contrib = fields.Char(string="Date of the last Forum Contribution")
+    di_amount_forum_created = fields.Char(string="Amount of Forum Created")
+    di_amount_forum_replie = fields.Char(string="Amount of Forum replies")
+    di_amount_replie_qualified_best_answer = fields.Char(string='Amount of replies qualified as "Best Answer"')
+    di_date_last_article_contrib = fields.Char(string="Date of the last Article Contributions")
+    di_amount_article_created = fields.Char(string="Amount of article Created")
+    di_date_last_pres_realese_contrib = fields.Char(string="Date of the Last Press Release Contribution")
+    di_amount_press_release_created = fields.Char(string="Amount of Press Releases Created")
+    di_date_last_programme_reviews_contrib = fields.Char(string="Date of the last Program Reviews Contributions")
+    di_amount_programme_reviews = fields.Char(string="Amount of Program Review Created")
+    di_community_profil_description = fields.Char(string="Community Profil Description")
+    # Classified Ads
+    di_date_last_ads_contrib = fields.Date(string="Date of Last Ads Contribution")
+    di_amount_ads_created = fields.Date(string="Amount of Ads Created")
+    di_amount_ads_contacted = fields.Char(string="Amount Ads Contacted")
+    # partner programm matchmacking
+    di_date_last_partner_program_contacted = fields.Char(string="Date of the last partner program contacted")
+    di_amount_distinct_partner_programs_proact_contacted = fields.Float(
+        string="Amount of distinct Partner Programs proactively contacted")
+    di_list_partner_program_contacted = fields.Char(string="List of Partner Programs contacted")
+    # investor matchmaking
+    di_date_last_investor_unlocked = fields.Date(string="Date of the last Investor unlocked")
+    di_date_last_investor_contacted = fields.Date(string="Date of the last Investor contacted")
+    di_amount_investor_unclocked = fields.Char(string="Amount of Investors unlocked")
+    di_amount_distinct_invertor_programs_proact_contacted = fields.Char(
+        string="Amount of distinct Investors proactively contacted")
+    di_list_investor_contacted = fields.Char(string="List of Investor contacted")
 
     @api.onchange('first_name', 'last_name')
     def onchange_first_last_name(self):

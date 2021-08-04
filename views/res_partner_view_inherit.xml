@@ -26,7 +26,12 @@
 
                     <div class="oe_button_box" name="button_box" position="before">
                         <div class="tab_">
-                            <button class="tablinks" onclick="openCity(event, 'individual')">Individual</button>
+                            <button class="tablinks act" onclick="openCity(event, 'individual')"
+                                    attrs="{'invisible':[('company_type','=','company')]}">Individual
+                            </button>
+                            <button class="tablinks act" onclick="openCity(event, 'individual')"
+                                    attrs="{'invisible':[('company_type','=','person')]}">Company
+                            </button>
                             <button class="tablinks" onclick="openCity(event, 'mirror')">Devinisider Mirror</button>
                         </div>
                     </div>
@@ -42,10 +47,10 @@
                                         <field name="contact_category"/>
                                         <field name="contact_status"/>
                                         <field name="first_name"
-                                               attrs="{'required': [('name', '=', False), ('company_type', '=', 'person')]}"
+                                               attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
                                         />
                                         <field name="last_name"
-                                               attrs="{'required': [('name', '=', False), ('company_type', '=', 'person')]}"
+                                               attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
                                         />
                                         <field name="email_pro"/>
                                         <field name="email_hard_bounced"/>
@@ -288,7 +293,7 @@
                             </div>
                         </div>
 
-                        <div id="mirror" class="tabcontent">
+                        <div id="mirror" class="tabcontent hidden_class">
                             <h1>
                                 <field name="di_name"/>
                             </h1>
@@ -303,17 +308,224 @@
                                 </group>
                             </div>
                             <group>
-                                <div class="o_horizontal_separator">Profile Overview</div>
-                                <field name="di_first_name_po"/>
-                                <field name="di_last_name_po"/>
-                                <field name="di_job_position"/>
-                                <field name="di_job_location"/>
-                                <field name="di_primary_email"/>
-                                <field name="di_work_email"/>
-                                <field name="di_phone"/>
-                                <field name="di_linkedin"/>
-                                <field name="di_about"/>
+                                <group>
+                                    <div class="o_horizontal_separator">Profile Overview</div>
+                                    <field name="di_first_name_po"/>
+                                    <field name="di_last_name_po"/>
+                                    <field name="di_job_position"/>
+                                    <field name="di_job_location"/>
+                                    <field name="di_primary_email"/>
+                                    <field name="di_work_email"/>
+                                    <field name="di_phone"/>
+                                    <field name="di_linkedin"/>
+                                    <field name="di_about"/>
+                                </group>
+                                <group>
+                                    <div class="o_horizontal_separator">Contact Information</div>
+                                    <field name="di_contact_category"/>
+                                    <field name="di_contact_status"/>
+                                    <div class="o_horizontal_separator">User Engagement</div>
+                                    <field name="di_date_signup"/>
+                                    <field name="di_date_last_login"/>
+                                </group>
                             </group>
+                            <group>
+                                <div class="o_horizontal_separator">Company Page</div>
+                                <field name="di_active_company_page"/>
+                                <field name="di_date_creation_claimed_own"/>
+                            </group>
+                            <group>
+                                <div class="o_horizontal_separator">Community</div>
+                                <field name="di_discussion_categ_followed"/>
+                                <field name="di_label_followed"/>
+                                <field name="di_date_last_forum_contrib"/>
+                                <field name="di_amount_forum_created"/>
+                                <field name="di_amount_forum_replie"/>
+                                <field name="di_amount_replie_qualified_best_answer"/>
+                                <field name="di_date_last_article_contrib"/>
+                                <field name="di_amount_article_created"/>
+                                <field name="di_date_last_pres_realese_contrib"/>
+                                <field name="di_amount_press_release_created"/>
+                                <field name="di_date_last_programme_reviews_contrib"/>
+                                <field name="di_amount_programme_reviews"/>
+                                <field name="di_community_profil_description"/>
+                            </group>
+                            <group>
+                                <div class="o_horizontal_separator">Classified Ads</div>
+                                <field name="di_date_last_ads_contrib"/>
+                                <field name="di_amount_ads_created"/>
+                                <field name="di_amount_ads_contacted"/>
+                            </group>
+                            <group>
+                                <div class="o_horizontal_separator">Partner Program Matchmaking</div>
+                                <field name="di_date_last_partner_program_contacted"/>
+                                <field name="di_amount_distinct_partner_programs_proact_contacted"/>
+                                <field name="di_list_partner_program_contacted"/>
+                            </group>
+                            <group>
+                                <div class="o_horizontal_separator">Investor Matchmaking</div>
+                                <field name="di_date_last_investor_unlocked"/>
+                                <field name="di_date_last_investor_contacted"/>
+                                <field name="di_amount_distinct_invertor_programs_proact_contacted"/>
+                                <field name="di_list_investor_contacted"/>
+                            </group>
+                            <notebook colspan="4">
+                                <page string="Contacts &amp; Addresses" autofocus="autofocus">
+                                    <field name="child_ids" mode="kanban">
+
+                                        <kanban>
+                                            <field name="id"/>
+                                            <field name="color"/>
+                                            <field name="name"/>
+                                            <field name="title"/>
+                                            <field name="type"/>
+                                            <field name="email"/>
+                                            <field name="is_company"/>
+                                            <field name="function"/>
+                                            <field name="phone"/>
+                                            <field name="street"/>
+                                            <field name="street2"/>
+                                            <field name="zip"/>
+                                            <field name="city"/>
+                                            <field name="country_id"/>
+                                            <field name="mobile"/>
+                                            <field name="state_id"/>
+                                            <field name="image_128"/>
+                                            <field name="lang"/>
+                                            <!-- fields in form x2many view to diminish requests -->
+                                            <field name="comment"/>
+                                            <field name="display_name"/>
+                                            <templates>
+                                                <t t-name="kanban-box">
+                                                    <t t-set="color"
+                                                       t-value="kanban_color(record.color.raw_value)"/>
+                                                    <div t-att-class="color + (record.title.raw_value == 1 ? ' oe_kanban_color_alert' : '') + ' oe_kanban_global_click'">
+                                                        <div class="o_kanban_image">
+                                                            <img alt="" t-if="record.image_128.raw_value"
+                                                                 t-att-src="kanban_image('res.partner', 'image_128', record.id.raw_value)"/>
+                                                            <t t-if="!record.image_128.raw_value">
+                                                                <img alt="Delivery"
+                                                                     t-if="record.type.raw_value === 'delivery'"
+                                                                     t-att-src='_s + "/base/static/img/truck.png"'/>
+                                                                <img alt="Invoice"
+                                                                     t-if="record.type.raw_value === 'invoice'"
+                                                                     t-att-src='_s + "/base/static/img/money.png"'/>
+                                                                <t t-if="record.type.raw_value !== 'invoice' &amp;&amp; record.type.raw_value !== 'delivery'">
+                                                                    <img alt="Logo"
+                                                                         t-if="record.is_company.raw_value === true"
+                                                                         t-att-src='_s + "/base/static/img/company_image.png"'/>
+                                                                    <img alt="Avatar"
+                                                                         t-if="record.is_company.raw_value === false"
+                                                                         t-att-src='_s + "/base/static/img/avatar_grey.png"'/>
+                                                                </t>
+                                                            </t>
+                                                        </div>
+                                                        <div class="oe_kanban_details">
+                                                            <field name="name"/>
+                                                            <div t-if="record.function.raw_value">
+                                                                <field name="function"/>
+                                                            </div>
+                                                            <div t-if="record.email.raw_value">
+                                                                <field name="email" widget="email"/>
+                                                            </div>
+                                                            <div t-if="record.type.raw_value != 'contact'">
+                                                                <div>
+                                                                    <field name="zip"/>
+                                                                    <field name="city"/>
+                                                                </div>
+                                                                <field t-if="record.state_id.raw_value"
+                                                                       name="state_id"/>
+                                                                <field name="country_id"/>
+                                                            </div>
+                                                            <div t-if="record.phone.raw_value">Phone:
+                                                                <field name="phone" widget="phone"/>
+                                                            </div>
+                                                            <div t-if="record.mobile.raw_value">Mobile:
+                                                                <field name="mobile" widget="phone"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </templates>
+                                        </kanban>
+                                        <form string="Contact / Address">
+                                            <sheet>
+                                                <!-- parent_id and type fields needed in attrs in base_address_city module which overwrites
+                                                _fields_view_get() of partner. It would be better to put those fields there but the web client
+                                                dosen't support when a field is displayed several times in the same view.-->
+                                                <field name="type" required="1" widget="radio"
+                                                       options="{'horizontal': true}"/>
+
+                                                <hr/>
+                                                <group col="12">
+                                                    <group colspan="5">
+                                                        <field name="name" string="Contact Name"
+                                                               attrs="{'required' : [('type', '=', 'contact')]}"/>
+                                                        <field name="title" placeholder="e.g. Mr."
+                                                               attrs="{'invisible': [('type','!=', 'contact')]}"/>
+                                                        <field name="function" placeholder="e.g. Sales Director"
+                                                               attrs="{'invisible': [('type','!=', 'contact')]}"/>
+                                                        <label for="street" string="Address"
+                                                               attrs="{'invisible': [('type','=', 'contact')]}"/>
+                                                        <div attrs="{'invisible': [('type','=', 'contact')]}">
+                                                            <div class="o_address_format" name="div_address">
+                                                                <field name="street" placeholder="Street..."
+                                                                       class="o_address_street"/>
+                                                                <field name="street2" placeholder="Street 2..."
+                                                                       class="o_address_street"/>
+                                                                <field name="city" placeholder="City"
+                                                                       class="o_address_city"/>
+                                                                <field name="state_id" class="o_address_state"
+                                                                       placeholder="State"
+                                                                       options='{"no_open": True}'
+                                                                       context="{'country_id': country_id, 'zip': zip}"/>
+                                                                <field name="zip" placeholder="ZIP"
+                                                                       class="o_address_zip"/>
+                                                                <field name="country_id" placeholder="Country"
+                                                                       class="o_address_country"
+                                                                       options='{"no_open": True, "no_create": True}'/>
+                                                            </div>
+                                                        </div>
+                                                        <field name="comment" placeholder="Internal notes..."/>
+                                                    </group>
+                                                    <group colspan="5">
+                                                        <field name="email" widget="email"/>
+                                                        <field name="phone" widget="phone"/>
+                                                        <field name="mobile" widget="phone"/>
+                                                        <field name="company_id" invisible="1"/>
+                                                    </group>
+                                                    <group colspan="1">
+                                                        <field name="image_1920" widget="image" class="oe_avatar"
+                                                               nolabel="1"
+                                                               options="{'image_preview': 'image_128'}"/>
+                                                    </group>
+                                                </group>
+                                                <field name="lang" invisible="True"/>
+                                                <field name="user_id" invisible="True"/>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name='sales_purchases' string="Sales &amp; Purchase">
+                                    <group name="container_row_2">
+                                        <group string="Sales" name="sale" priority="1">
+                                            <field name="user_id"/>
+                                        </group>
+                                        <group string="Purchase" name="purchase" priority="2">
+                                        </group>
+                                        <group name="misc" string="Misc">
+                                            <field name="ref" string="Reference"/>
+
+                                            <field name="industry_id"
+                                                   attrs="{'invisible': [('is_company', '=', False)]}"
+                                                   options="{'no_create': True}"/>
+                                        </group>
+                                    </group>
+                                </page>
+                                <page name='internal_notes' string="Internal Notes">
+                                    <field name="comment" placeholder="Internal note..."/>
+                                </page>
+                            </notebook>
                         </div>
                     </div>
                     <xpath expr="//div[@name='button_box']" position="attributes">
