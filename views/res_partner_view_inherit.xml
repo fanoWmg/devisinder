@@ -175,8 +175,10 @@
                                         <div class="o_horizontal_separator">Contact information</div>
                                         <field name="contact_category"/>
                                         <field name="contact_status"/>
-                                        <field name="pre_listed_comp_page_devinsider" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                        <field name="active_comp_page" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                        <field name="pre_listed_comp_page_devinsider"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                        <field name="active_comp_page"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
                                     </group>
                                 </group>
                                 <group>
@@ -210,6 +212,42 @@
                                     <field name="notes"/>
 
 
+                                </group>
+                                <group>
+                                    <div class="o_horizontal_separator">
+                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">Financials</span>
+                                    </div>
+                                    <field name="annual_turnover"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="looking_funding"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="amount_targeted"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="number_funding_round"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="last_funding_date"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="total_funding_amount"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+
+                                </group>
+                                <group>
+                                     <div class="o_horizontal_separator">
+                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">Strategy</span>
+                                    </div>
+                                    <field name="licensing_model" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="distribution_channel" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="number_product" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="technology_partnership" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="technology_partnership_place" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                </group>
+                                <group>
+                                      <div class="o_horizontal_separator">
+                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">Sociale Media</span>
+                                    </div>
+                                    <field name="linkedin" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="twitter" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="facebook" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
                                 </group>
                                 <notebook colspan="4">
                                     <page string="Contacts &amp; Addresses" autofocus="autofocus">

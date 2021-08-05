@@ -126,8 +126,10 @@ class ResPartnerInherit(models.Model):
     #company
     company_lega_name = fields.Char(string="Company Lega Name")
     hq_email = fields.Char(string="HQ Email")
-    horizontal_ids = fields.Many2many('devinsider.horizontal', 'name', string="Horizontal")
-    vertical_ids = fields.Many2many('devinsider.vertical', 'name', string="Vertical")
+    # horizontal_id = fields.Many2one('devinsider.horizontal')
+    # vertical_id = fields.Many2one('devinsider.vertical')
+    horizontal_ids = fields.Many2many('devinsider.horizontal', string="Horizontal")
+    vertical_ids = fields.Many2many('devinsider.vertical', string="Vertical")
     founded = fields.Char(string="Founded")
     comp_company_type = fields.Char(string="Company Type")
     contry = fields.Char(string="Contry(ies)")
@@ -158,6 +160,25 @@ class ResPartnerInherit(models.Model):
     phone_3 = fields.Char(string="Phone") #mbola ts napotra
     email_3 = fields.Char(string="Email")
 
+    # Financials
+    annual_turnover = fields.Char(string="Annual Turnover")
+    looking_funding = fields.Char(string="Looking for funding?")
+    amount_targeted = fields.Char(string="Amount targeted")
+    number_funding_round = fields.Integer(string="Number of Funding Round")
+    last_funding_date = fields.Date(string="Last Funding Date")
+    total_funding_amount = fields.Char(string="Total Funding Amount")
+
+    #Strategy
+    licensing_model = fields.Char(string="Licensing Model")
+    distribution_channel = fields.Char(string="Distribution channel")
+    number_product = fields.Char(string="Number of product")
+    technology_partnership = fields.Char(string="Technology Partnership")
+    technology_partnership_place = fields.Char(string="Technology partnerships in place")
+
+    #social media
+    linkedin = fields.Char(string="LinkedIn")
+    twitter = fields.Char(string="Twitter")
+    facebook = fields.Char(string="Facebook")
 
     #mirror company
     
