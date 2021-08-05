@@ -32,6 +32,7 @@ class ResPartnerInherit(models.Model):
         ('not_registered_in_di', 'Not Registered On Devinsider'),
         ('registered_in_di', 'Registered On Devinsider')],
         string='Contact Status')
+    di_contact_status = fields.Char(string='Contact Status')
 
     job_position = fields.Char(string='Job Position')
     job_category = fields.Selection([
@@ -125,9 +126,9 @@ class ResPartnerInherit(models.Model):
 
     #company
     company_lega_name = fields.Char(string="Company Lega Name")
+    di_company_lega_name = fields.Char(string="Company Lega Name")
     hq_email = fields.Char(string="HQ Email")
-    # horizontal_id = fields.Many2one('devinsider.horizontal')
-    # vertical_id = fields.Many2one('devinsider.vertical')
+    di_hq_email = fields.Char(string="HQ Email")
     horizontal_ids = fields.Many2many('devinsider.horizontal', string="Horizontal")
     vertical_ids = fields.Many2many('devinsider.vertical', string="Vertical")
     founded = fields.Char(string="Founded")

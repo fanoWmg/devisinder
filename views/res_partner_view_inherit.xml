@@ -416,8 +416,12 @@
                             <div class="cadre">
                                 <group>
                                     <div class="o_horizontal_separator">Primary Information</div>
-                                    <field name="di_fistname"/>
-                                    <field name="di_lastname"/>
+                                    <field name="di_contact_category" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="di_contact_status" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="di_company_lega_name" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="di_hq_email" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="di_fistname" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                    <field name="di_lastname" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                                     <field name="di_email_email_score"/>
                                     <field name="di_email_hard_bounced"/>
                                     <field name="di_email_soft_bounced"/>
