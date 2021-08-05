@@ -10,8 +10,8 @@ class ResPartnerInherit(models.Model):
     first_name = fields.Char(string="First name")
     last_name = fields.Char(string="Last name")
     email_score = fields.Boolean(string="Email Score")
-    email_hard_bounced = fields.Char(string="Email Hard Bounced")
-    email_soft_bounced = fields.Char(string="Email Soft Bounced")
+    email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
+    email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
     email_pro = fields.Char(string="Email")
     company_type = fields.Selection(string='Company Type',
                                     selection=[('person', 'Individual'), ('company', 'Company')],
@@ -69,10 +69,11 @@ class ResPartnerInherit(models.Model):
     ###### DI Mirror ######
 
     di_name = fields.Char(string='Name', readonly=True)
+    di_email_pro = fields.Char(string='Email', readonly=True)
     di_fistname = fields.Char(string='First Name', readonly=True)
     di_lastname = fields.Char(string='Last Name', readonly=True)
     # di_image_profil = fields.Binary(string='.', readonly=True)
-    di_job_position = fields.Char(string='Job position', readonly=True)
+    di_job_position = fields.Char(string='Job position')
     di_city = fields.Char(string='City', readonly=True)
     di_country_id = fields.Many2one('res.country', 'Country', readonly=True)
     di_primary_email = fields.Char(string='Primary Email', readonly=True)
@@ -81,8 +82,8 @@ class ResPartnerInherit(models.Model):
     di_linkedin = fields.Char(string='Linkedin', readonly=True)
     di_about = fields.Text(string='About', readonly=True)
     di_email_email_score = fields.Char(string="Email score")
-    di_email_hard_bounced = fields.Char(string="Email Hard Bounced")
-    di_email_soft_bounced = fields.Char(string="Email Soft Bounced")
+    di_email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
+    di_email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
     di_first_name_po = fields.Char(string="First Name")
     di_last_name_po = fields.Char(string="Last Name")
     di_job_location = fields.Char(string="Location")
@@ -91,7 +92,7 @@ class ResPartnerInherit(models.Model):
     di_contact_status = fields.Char(string="Contact Status")
     di_date_signup = fields.Date(string="Date of Sign-Up")
     di_date_last_login = fields.Date(string="Date of the last Log-In")
-    di_active_company_page = fields.Char(string="Active Company Page (Created, affiliated or Claimed Ownership)")
+    di_active_company_page = fields.Boolean(string="Active Company Page (Created, affiliated or Claimed Ownership)")
     di_date_creation_claimed_own = fields.Date(string="Date of Creation/Claimed Ownership")
     # Mirror Comminity
     di_discussion_categ_followed = fields.Char(string="Discussion Categorie Followed")
@@ -124,17 +125,21 @@ class ResPartnerInherit(models.Model):
         string="Amount of distinct Investors proactively contacted")
     di_list_investor_contacted = fields.Char(string="List of Investor contacted")
 
-    #company
+    # company
     company_lega_name = fields.Char(string="Company Lega Name")
     di_company_lega_name = fields.Char(string="Company Lega Name")
     hq_email = fields.Char(string="HQ Email")
     di_hq_email = fields.Char(string="HQ Email")
     horizontal_ids = fields.Many2many('devinsider.horizontal', string="Horizontal")
+    di_horizontal = fields.Char(string="Horizontal")
     vertical_ids = fields.Many2many('devinsider.vertical', string="Vertical")
+    di_vertical = fields.Char(string="Vertical")
     founded = fields.Char(string="Founded")
+    di_founded = fields.Char(string="Founded")
     comp_company_type = fields.Char(string="Company Type")
     contry = fields.Char(string="Contry(ies)")
     comapany_size = fields.Char(string="Company Size")
+    di_comapany_size = fields.Char(string="Company Size")
     pre_listed_comp_page_devinsider = fields.Char(string="Pre-listed Company Page on Devinsider")
     active_comp_page = fields.Char(string="Active Company Page (Created or Claimed Ownership)")
 
@@ -146,7 +151,7 @@ class ResPartnerInherit(models.Model):
     zip_2 = fields.Char(change_default=True)
     city_2 = fields.Char()
     state_id_2 = fields.Many2one("res.country.state", string='State', ondelete='restrict',
-                               domain="[('country_id', '=?', country_id)]")
+                                 domain="[('country_id', '=?', country_id)]")
     country_id_2 = fields.Many2one('res.country', string='Country', ondelete='restrict')
     phone_2 = fields.Char(string="Phone")
     email_2 = fields.Char(string="Email")
@@ -158,31 +163,63 @@ class ResPartnerInherit(models.Model):
     state_id_3 = fields.Many2one("res.country.state", string='State', ondelete='restrict',
                                  domain="[('country_id', '=?', country_id)]")
     country_id_3 = fields.Many2one('res.country', string='Country', ondelete='restrict')
-    phone_3 = fields.Char(string="Phone") #mbola ts napotra
+    phone_3 = fields.Char(string="Phone")  # mbola ts napotra
     email_3 = fields.Char(string="Email")
 
     # Financials
     annual_turnover = fields.Char(string="Annual Turnover")
+    annual_turnover_bracket = fields.Char(string="Annual Turnover Bracket")
     looking_funding = fields.Char(string="Looking for funding?")
     amount_targeted = fields.Char(string="Amount targeted")
+    di_amount_targeted = fields.Char(string="Amount targeted")
     number_funding_round = fields.Integer(string="Number of Funding Round")
     last_funding_date = fields.Date(string="Last Funding Date")
+    di_last_funding_date = fields.Date(string="Last Funding Date")
     total_funding_amount = fields.Char(string="Total Funding Amount")
 
-    #Strategy
+    # Strategy
     licensing_model = fields.Char(string="Licensing Model")
+    di_licensing_model = fields.Char(string="Licensing Model")
     distribution_channel = fields.Char(string="Distribution channel")
+    di_distribution_channel = fields.Char(string="Distribution channel")
     number_product = fields.Char(string="Number of product")
     technology_partnership = fields.Char(string="Technology Partnership")
     technology_partnership_place = fields.Char(string="Technology partnerships in place")
+    di_technology_partnership_place = fields.Char(string="Technology partnerships in place")
 
-    #social media
+    # social media
     linkedin = fields.Char(string="LinkedIn")
     twitter = fields.Char(string="Twitter")
     facebook = fields.Char(string="Facebook")
 
-    #mirror company
-    
+    # mirror company
+    di_company_name = fields.Char(string="Company name")
+    di_website = fields.Char(string="Website")
+    di_heasquarter_location = fields.Char(string="Headquarter Location")
+    di_company_summary = fields.Char(string="Company Summary")
+    di_amount_team = fields.Char(string="Amount of Team")
+    di_members = fields.Char(string="Members")
+    di_geo_target_market = fields.Char(string="Geo. Target Market")
+    di_product_development = fields.Char(string="product Development")
+    di_expansion_strategy = fields.Char(string="Expansion Strategy")
+    di_technology_partnership_interest = fields.Char(string="Technology Partnership interests")
+    di_annual_turnover_chart = fields.Char(string="Annual Turnover Chart")
+
+    # pitch
+    di_paint_point_solving = fields.Char(string="What Paint Point are you solving?")
+    di_key_competitive_differentiator = fields.Char(string="What are your key competitive differentiator?")
+    di_make_team_uniques = fields.Char(string="What Makes your team unique")
+    devinsider_pitch = fields.Char(string="Devinsider Pitch")
+
+    # contact information mirror company
+    di_pre_listed_comp_page_devinsider = fields.Char(string="Pre-listed Company Page on Devinsider")
+
+    #Company page engagement mirror
+    di_last_modif_date = fields.Date(string="Last Modified Date")
+    di_company_page_compl_prog_matchmaking = fields.Char(string="Company Page completed for Programs Matchmaking")
+    di_company_page_compl_invest_matchmaking = fields.Char(string="Company page completed for Investor Matchmaking")
+    di_devinsider_pitch_published = fields.Char(string="Devinsider pitch published")
+
 
     @api.onchange('first_name', 'last_name')
     def onchange_first_last_name(self):
