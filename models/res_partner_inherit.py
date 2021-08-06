@@ -214,12 +214,19 @@ class ResPartnerInherit(models.Model):
     # contact information mirror company
     di_pre_listed_comp_page_devinsider = fields.Char(string="Pre-listed Company Page on Devinsider")
 
-    #Company page engagement mirror
+    # Company page engagement mirror
     di_last_modif_date = fields.Date(string="Last Modified Date")
     di_company_page_compl_prog_matchmaking = fields.Char(string="Company Page completed for Programs Matchmaking")
     di_company_page_compl_invest_matchmaking = fields.Char(string="Company page completed for Investor Matchmaking")
     di_devinsider_pitch_published = fields.Char(string="Devinsider pitch published")
 
+    # Classified ads company
+    di_contributed_last_30_day = fields.Char(string="Contributed in the last 30 days")
+    di_contributed_last_60_day = fields.Char(string="Contributed in the last 60 days")
+
+    # partner programm matchmaking
+    amount_distinct_partner_prog_contact_isv = fields.Char(
+        string="Amount of distinct Partner programs that have contacted this ISV")
 
     @api.onchange('first_name', 'last_name')
     def onchange_first_last_name(self):
