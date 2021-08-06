@@ -7,6 +7,9 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <data>
+                    <xpath expr="//field[@name='parent_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
                     <xpath expr="//div[@class='o_address_format']" position="attributes">
                         <attribute name="class">o_address_format hidden_class</attribute>
                     </xpath>
@@ -41,6 +44,11 @@
                                 <h1>
                                     <field name="name"/>
                                 </h1>
+                                <field name="parent_id" widget="res_partner_many2one" placeholder="Company"
+                                       domain="[('is_company', '=', True)]"
+                                       context="{'default_is_company': True, 'show_vat': True}"
+                                       attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"
+                                       on_change="1" can_create="true" can_write="true" modifiers="{'invisible':true}"/>
                                 <div class="cadre">
                                     <group>
                                         <div class="o_horizontal_separator">Primary Information</div>
