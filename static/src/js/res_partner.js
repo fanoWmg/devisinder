@@ -1,3 +1,9 @@
+/*document.getElementsByClassName("act").style.background_color = "red"
+tablinks = document.getElementsByClassName("tablinks");*/
+
+/*document.getElementById('individual').style.display = "block";*/
+/*event.currentTarget.className += " active";*/
+
 function openCity(evt, cityName) {
     console.log("mande v")
     var i, tabcontent, tablinks;

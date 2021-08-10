@@ -29,10 +29,10 @@
 
                     <div class="oe_button_box" name="button_box" position="before">
                         <div class="tab_">
-                            <button class="tablinks act" onclick="openCity(event, 'individual')"
+                            <button class="tablinks active" onclick="openCity(event, 'individual')"
                                     attrs="{'invisible':[('company_type','=','company')]}">Individual
                             </button>
-                            <button class="tablinks act" onclick="openCity(event, 'individual')"
+                            <button class="tablinks active" onclick="openCity(event, 'individual')"
                                     attrs="{'invisible':[('company_type','=','person')]}">Company
                             </button>
                             <button class="tablinks" onclick="openCity(event, 'mirror')">Devinisider Mirror</button>
@@ -443,7 +443,7 @@
                                            attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                                     <field name="di_email_pro"
                                            attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                    <field name="di_email_email_score"/>
+<!--                                    <field name="di_email_email_score"/>-->
                                     <field name="di_email_hard_bounced"/>
                                     <field name="di_email_soft_bounced"/>
                                 </group>

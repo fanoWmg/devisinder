@@ -12,7 +12,7 @@
 .tab_ button {
     background-color: inherit;
     float: left;
-    border: 1px;
+    border: 0px;
     outline: none;
     cursor: pointer;
     padding: 20px 16px;
@@ -28,6 +28,7 @@
 /* Create an active/current tab_link class */
 .tab_ button.active {
     background-color: #ccc;
+
 }
 
 /* Style the tab_ content */
@@ -35,7 +36,7 @@
     padding: 6px 12px;
     border: 0px solid #ccc;
     border-top: none;
-    width: 141%;
+    width: 108%;
 
 }
 
@@ -65,11 +66,16 @@
     overflow: hidden;
     border: 1px solid #ccc;
     padding: 5px;
+    width: 92%;
 }
 .hidden_class{
     display: none;
 }
 .left_margin{
     margin-left: 0px;
+}
+
+.o_form_view.o_form_editable .oe_title {
+    max-width: 887px;
 }
 
