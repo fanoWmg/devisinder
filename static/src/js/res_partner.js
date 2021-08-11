@@ -1,10 +1,3 @@
-/*document.getElementsByClassName("act").style.background_color = "red"
-tablinks = document.getElementsByClassName("tablinks");*/
-
-/*document.getElementById('individual').style.display = "block";*/
-
-/*event.currentTarget.className += " active";*/
-
 function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");

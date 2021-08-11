@@ -455,6 +455,7 @@
                             </h1>
                             <div class="cadre" id="cadre_mir">
                                 <group>
+
                                     <div id="not_hide_mir">
                                         <div class="o_horizontal_separator">Primary Information</div>
                                         <div class="item_display">
@@ -472,6 +473,25 @@
 
                                         </div>
                                     </div>
+
+                                    <div class="o_horizontal_separator">Primary Information</div>
+                                    <field name="di_contact_category"/>
+                                    <field name="di_contact_status"/>
+                                    <field name="di_company_name"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="di_company_lega_name"
+                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="di_hq_email" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="di_fistname"
+                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                    <field name="di_lastname"
+                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                    <field name="di_email_pro"
+                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                    <field name="di_email_email_score"/>
+                                    <field name="di_email_hard_bounced"/>
+                                    <field name="di_email_soft_bounced"/>
+
                                 </group>
                                 <div id="display_cadre_mir">
                                     <group>
