@@ -7,8 +7,8 @@ from odoo import models, fields, api
 class ResPartnerInherit(models.Model):
     _inherit = 'res.partner'
 
-    first_name = fields.Char(string="First name")
-    last_name = fields.Char(string="Last name")
+    # first_name = fields.Char(string="First name")
+    # last_name = fields.Char(string="Last name")
     email_score = fields.Boolean(string="Email Score")
     email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
     email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
@@ -228,14 +228,14 @@ class ResPartnerInherit(models.Model):
     amount_distinct_partner_prog_contact_isv = fields.Char(
         string="Amount of distinct Partner programs that have contacted this ISV")
 
-    @api.onchange('first_name', 'last_name')
-    def onchange_first_last_name(self):
-        if self.first_name or self.last_name:
-            name_tab = [self.first_name or '', self.last_name or '']
-            name = ' '.join(name_tab)
-        else:
-            name = False
-        self.name = name
+    # @api.onchange('first_name', 'last_name')
+    # def onchange_first_last_name(self):
+    #     if self.first_name or self.last_name:
+    #         name_tab = [self.first_name or '', self.last_name or '']
+    #         name = ' '.join(name_tab)
+    #     else:
+    #         name = False
+    #     self.name = name
 
     def create_partner_type_person(self, first_name, last_name, parent):
         partner = self.search([('last_name', '=', last_name), ('first_name', '=', first_name)])

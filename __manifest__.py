@@ -3,8 +3,7 @@
     'name': "devinsider_api",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        DevInsider API""",
 
     'description': """
         Long description of module's purpose
@@ -20,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['mail', 'web', 'crm'],
+    'depends': ['base', 'mail', 'web', 'crm', 'first_name_last_name_partner'],
 
     # always loaded
     'data': [
@@ -28,7 +27,6 @@
         'views/views.xml',
         'views/type_mail_devinsider.xml',
         'views/ir_mail_server_view_inherit.xml',
-        #'views/res_partner.xml',
         'views/css_js_loader.xml',
         'views/res_partner_view_inherit.xml',
 
@@ -41,6 +39,6 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        #'demo/demo.xml',
     ],
 }

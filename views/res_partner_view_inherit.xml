@@ -29,10 +29,10 @@
 
                     <div class="oe_button_box" name="button_box" position="before">
                         <div class="tab_">
-                            <button class="tablinks act" onclick="openCity(event, 'individual')"
+                            <button class="tablinks active" onclick="openCity(event, 'individual')"
                                     attrs="{'invisible':[('company_type','=','company')]}">Individual
                             </button>
-                            <button class="tablinks act" onclick="openCity(event, 'individual')"
+                            <button class="tablinks active" onclick="openCity(event, 'individual')"
                                     attrs="{'invisible':[('company_type','=','person')]}">Company
                             </button>
                             <button class="tablinks" onclick="openCity(event, 'mirror')">Devinisider Mirror</button>
@@ -49,25 +49,51 @@
                                        context="{'default_is_company': True, 'show_vat': True}"
                                        attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"
                                        on_change="1" can_create="true" can_write="true" modifiers="{'invisible':true}"/>
-                                <div class="cadre">
+
+                                <div class="cadre" id="cadre_">
                                     <group>
-                                        <div class="o_horizontal_separator">Primary Information</div>
-                                        <field name="contact_category"/>
-                                        <field name="company_name"
-                                               attrs="{'invisible':[('company_type','=','person')]}"/>
-                                        <field name="company_lega_name"
-                                               attrs="{'invisible':[('company_type','=','person')]}"/>
-                                        <field name="hq_email" attrs="{'invisible':[('company_type','=','person')]}"/>
-                                        <field name="contact_status"/>
-                                        <field name="first_name"
-                                               attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
-                                        />
-                                        <field name="last_name"
-                                               attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
-                                        />
-                                        <field name="email_pro"/>
-                                        <field name="email_hard_bounced"/>
-                                        <field name="email_soft_bounced"/>
+                                        <div id="not_hide">
+                                            <div class="o_horizontal_separator">Primary Information</div>
+                                            <div class="item_display">
+                                                <div id="minus">
+                                                    <button class="btn" id="minus"
+                                                            onclick="type_display_div('none', 'ind_comp')">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <div id="plus" class="hidden_class">
+                                                    <button class="btn" onclick="type_display_div('block', 'ind_comp')">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <div id="display_cadre">
+                                            <group>
+                                                <field name="contact_category"/>
+                                                <field name="company_name"
+                                                       attrs="{'invisible':[('company_type','=','person')]}"/>
+                                                <field name="company_lega_name"
+                                                       attrs="{'invisible':[('company_type','=','person')]}"/>
+                                                <field name="hq_email"
+                                                       attrs="{'invisible':[('company_type','=','person')]}"/>
+                                                <field name="contact_status"/>
+                                                <field name="first_name"
+                                                       attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
+                                                />
+                                                <field name="last_name"
+                                                       attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
+                                                />
+                                                <field name="email_pro"/>
+                                                <field name="email_hard_bounced"/>
+                                                <field name="email_soft_bounced"/>
+                                            </group>
+
+
+                                        </div>
                                     </group>
                                 </div>
                                 <group>
@@ -427,26 +453,47 @@
                             <h1>
                                 <field name="di_name"/>
                             </h1>
-                            <div class="cadre">
+                            <div class="cadre" id="cadre_mir">
                                 <group>
-                                    <div class="o_horizontal_separator">Primary Information</div>
-                                    <field name="di_contact_category"/>
-                                    <field name="di_contact_status"/>
-                                    <field name="di_company_name"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_company_lega_name"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_hq_email" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_fistname"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                    <field name="di_lastname"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                    <field name="di_email_pro"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                    <field name="di_email_email_score"/>
-                                    <field name="di_email_hard_bounced"/>
-                                    <field name="di_email_soft_bounced"/>
+                                    <div id="not_hide_mir">
+                                        <div class="o_horizontal_separator">Primary Information</div>
+                                        <div class="item_display">
+                                            <div id="minus_mir">
+                                                <button class="btn"
+                                                        onclick="type_display_div('none', 'mirror')">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div>
+                                            <div id="plus_mir" class="hidden_class">
+                                                <button class="btn" onclick="type_display_div('block', 'mirror')">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </group>
+                                <div id="display_cadre_mir">
+                                    <group>
+                                        <field name="di_contact_category"/>
+                                        <field name="di_contact_status"/>
+                                        <field name="di_company_name"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                        <field name="di_company_lega_name"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                        <field name="di_hq_email"
+                                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                        <field name="di_fistname"
+                                               attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                        <field name="di_lastname"
+                                               attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                        <field name="di_email_pro"
+                                               attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                        <field name="di_email_email_score"/>
+                                        <field name="di_email_hard_bounced"/>
+                                        <field name="di_email_soft_bounced"/>
+                                    </group>
+                                </div>
                             </div>
                             <group>
                                 <group>
