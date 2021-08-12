@@ -7,3 +7,4 @@ from . import ir_mail_server_inherit
 from . import crm_lead_inherit
 from . import res_partner_inherit
 from . import devinsider_horizontal_vertical
+from . import geo_target

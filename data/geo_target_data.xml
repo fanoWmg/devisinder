@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--               AFRICA                   -->
+        <record id="geo_target_country_1" model="devinsider_api.geo_target_country">
+            <field name="name">AFRICA</field>
+        </record>
+        <record id="geo_target_city_2" model="devinsider_api.geo_target_city">
+            <field name="name">Algeria</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_4" model="devinsider_api.geo_target_city">
+            <field name="name">Botswana</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_5" model="devinsider_api.geo_target_city">
+            <field name="name">Cameroon</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_6" model="devinsider_api.geo_target_city">
+            <field name="name">Egypt</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_7" model="devinsider_api.geo_target_city">
+            <field name="name">Equatorial Guinea</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_8" model="devinsider_api.geo_target_city">
+            <field name="name">Ethiopia</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_9" model="devinsider_api.geo_target_city">
+            <field name="name">Gabon</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_10" model="devinsider_api.geo_target_city">
+            <field name="name">Ghana</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_11" model="devinsider_api.geo_target_city">
+            <field name="name">Ivory Coast</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_12" model="devinsider_api.geo_target_city">
+            <field name="name">Kenya</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_13" model="devinsider_api.geo_target_city">
+            <field name="name">Madagascar</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_14" model="devinsider_api.geo_target_city">
+            <field name="name">Mauritius</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_15" model="devinsider_api.geo_target_city">
+            <field name="name">Morocco</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_16" model="devinsider_api.geo_target_city">
+            <field name="name">Namibia</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_17" model="devinsider_api.geo_target_city">
+            <field name="name">Nigeria</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_18" model="devinsider_api.geo_target_city">
+            <field name="name">South Africa</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_19" model="devinsider_api.geo_target_city">
+            <field name="name">Sudan</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_20" model="devinsider_api.geo_target_city">
+            <field name="name">Tanzania</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <record id="geo_target_city_21" model="devinsider_api.geo_target_city">
+            <field name="name">Tunisia</field>
+            <field name="country_id" eval="ref('geo_target_country_1')"/>
+        </record>
+        <!--               ASIA PACIFIC                   -->
+        <record id="geo_target_country_2" model="devinsider_api.geo_target_country">
+            <field name="name">ASIA PACIFIC</field>
+        </record>
+        <record id="geo_target_city_22" model="devinsider_api.geo_target_city">
+            <field name="name">Australia</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_23" model="devinsider_api.geo_target_city">
+            <field name="name">Brunei</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_24" model="devinsider_api.geo_target_city">
+            <field name="name">Cambodia</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_25" model="devinsider_api.geo_target_city">
+            <field name="name">China</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_25" model="devinsider_api.geo_target_city">
+            <field name="name">Hong Kong</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_26" model="devinsider_api.geo_target_city">
+            <field name="name">India</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_27" model="devinsider_api.geo_target_city">
+            <field name="name">Indonesia</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_28" model="devinsider_api.geo_target_city">
+            <field name="name">Japan</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_29" model="devinsider_api.geo_target_city">
+            <field name="name">Malaysia</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_30" model="devinsider_api.geo_target_city">
+            <field name="name">Nepal</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_31" model="devinsider_api.geo_target_city">
+            <field name="name">New Zealand</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_32" model="devinsider_api.geo_target_city">
+            <field name="name">Philippines</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_33" model="devinsider_api.geo_target_city">
+            <field name="name">South Korea</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_34" model="devinsider_api.geo_target_city">
+            <field name="name">Taiwan</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_35" model="devinsider_api.geo_target_city">
+            <field name="name">Thailand</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <record id="geo_target_city_36" model="devinsider_api.geo_target_city">
+            <field name="name">Vietnam</field>
+            <field name="country_id" eval="ref('geo_target_country_2')"/>
+        </record>
+        <!--               EUROPE                   -->
+        <record id="geo_target_country_3" model="devinsider_api.geo_target_country">
+            <field name="name">EUROPE</field>
+        </record>
+        <record id="geo_target_city_37" model="devinsider_api.geo_target_city">
+            <field name="name">Albania</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_38" model="devinsider_api.geo_target_city">
+            <field name="name">Austria</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_39" model="devinsider_api.geo_target_city">
+            <field name="name">Belarus</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_40" model="devinsider_api.geo_target_city">
+            <field name="name">Belgium</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_41" model="devinsider_api.geo_target_city">
+            <field name="name">Bosnia and Herzegovina</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_42" model="devinsider_api.geo_target_city">
+            <field name="name">Bulgaria</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_43" model="devinsider_api.geo_target_city">
+            <field name="name">Croatia</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_44" model="devinsider_api.geo_target_city">
+            <field name="name">Cyprus</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_45" model="devinsider_api.geo_target_city">
+            <field name="name">Czech Republic</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_46" model="devinsider_api.geo_target_city">
+            <field name="name">Denmark</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_47" model="devinsider_api.geo_target_city">
+            <field name="name">Estonia</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_48" model="devinsider_api.geo_target_city">
+            <field name="name">Finland</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_49" model="devinsider_api.geo_target_city">
+            <field name="name">France</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_50" model="devinsider_api.geo_target_city">
+            <field name="name">Germany</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_51" model="devinsider_api.geo_target_city">
+            <field name="name">Greece</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_52" model="devinsider_api.geo_target_city">
+            <field name="name">Hungary</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_53" model="devinsider_api.geo_target_city">
+            <field name="name">Iceland</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_54" model="devinsider_api.geo_target_city">
+            <field name="name">Ireland</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_55" model="devinsider_api.geo_target_city">
+            <field name="name">Italy</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_56" model="devinsider_api.geo_target_city">
+            <field name="name">Latvia</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_57" model="devinsider_api.geo_target_city">
+            <field name="name">Lithuania</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_58" model="devinsider_api.geo_target_city">
+            <field name="name">Luxembourg</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_59" model="devinsider_api.geo_target_city">
+            <field name="name">Malta</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_60" model="devinsider_api.geo_target_city">
+            <field name="name">Monaco</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_61" model="devinsider_api.geo_target_city">
+            <field name="name">Netherlands</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_62" model="devinsider_api.geo_target_city">
+            <field name="name">North Macedonia</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_63" model="devinsider_api.geo_target_city">
+            <field name="name">Norway</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_64" model="devinsider_api.geo_target_city">
+            <field name="name">Portugal</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_65" model="devinsider_api.geo_target_city">
+            <field name="name">Romania</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_66" model="devinsider_api.geo_target_city">
+            <field name="name">Russia</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_67" model="devinsider_api.geo_target_city">
+            <field name="name">Serbia</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_68" model="devinsider_api.geo_target_city">
+            <field name="name">Slovakia</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <record id="geo_target_city_69" model="devinsider_api.geo_target_city">
+            <field name="name">Slovenia</field>
+            <field name="country_id" eval="ref('geo_target_country_3')"/>
+        </record>
+        <!--               LATIN AMERICA                   -->
+        <record id="geo_target_country_4" model="devinsider_api.geo_target_country">
+            <field name="name">LATIN AMERICA</field>
+        </record>
+        <record id="geo_target_city_70" model="devinsider_api.geo_target_city">
+            <field name="name">Argentina</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_71" model="devinsider_api.geo_target_city">
+            <field name="name">Bolivia</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_72" model="devinsider_api.geo_target_city">
+            <field name="name">Brazil</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_73" model="devinsider_api.geo_target_city">
+            <field name="name">Chile</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_74" model="devinsider_api.geo_target_city">
+            <field name="name">Columbia</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_75" model="devinsider_api.geo_target_city">
+            <field name="name">Costa Rica</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_76" model="devinsider_api.geo_target_city">
+            <field name="name">Cuba</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_77" model="devinsider_api.geo_target_city">
+            <field name="name">Dominican Republic</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_78" model="devinsider_api.geo_target_city">
+            <field name="name">Guatemala</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_79" model="devinsider_api.geo_target_city">
+            <field name="name">Mexico</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_80" model="devinsider_api.geo_target_city">
+            <field name="name">Panama</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_81" model="devinsider_api.geo_target_city">
+            <field name="name">Paraguay</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_81" model="devinsider_api.geo_target_city">
+            <field name="name">Peru</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_82" model="devinsider_api.geo_target_city">
+            <field name="name">Uruguay</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <record id="geo_target_city_83" model="devinsider_api.geo_target_city">
+            <field name="name">Venezula</field>
+            <field name="country_id" eval="ref('geo_target_country_4')"/>
+        </record>
+        <!--               MIDDLE EAST                   -->
+        <record id="geo_target_country_5" model="devinsider_api.geo_target_country">
+            <field name="name">MIDDLE EAST</field>
+        </record>
+        <record id="geo_target_city_84" model="devinsider_api.geo_target_city">
+            <field name="name">Bahrain</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_85" model="devinsider_api.geo_target_city">
+            <field name="name">Azerbaijan</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_86" model="devinsider_api.geo_target_city">
+            <field name="name">Iran</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_87" model="devinsider_api.geo_target_city">
+            <field name="name">Israel</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_88" model="devinsider_api.geo_target_city">
+            <field name="name">Jordan</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_89" model="devinsider_api.geo_target_city">
+            <field name="name">Kuwait</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_90" model="devinsider_api.geo_target_city">
+            <field name="name">Lebanon</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_91" model="devinsider_api.geo_target_city">
+            <field name="name">Oman</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_92" model="devinsider_api.geo_target_city">
+            <field name="name">Qatar</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_93" model="devinsider_api.geo_target_city">
+            <field name="name">Saudi Arabia</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_94" model="devinsider_api.geo_target_city">
+            <field name="name">Turkey</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+        <record id="geo_target_city_95" model="devinsider_api.geo_target_city">
+            <field name="name">United Arab Emirates</field>
+            <field name="country_id" eval="ref('geo_target_country_5')"/>
+        </record>
+
+        <!--               NORT AMERICA                   -->
+        <record id="geo_target_country_6" model="devinsider_api.geo_target_country">
+            <field name="name">NORT AMERICA</field>
+        </record>
+        <record id="geo_target_city_96" model="devinsider_api.geo_target_city">
+            <field name="name">Canada</field>
+            <field name="country_id" eval="ref('geo_target_country_6')"/>
+        </record>
+        <record id="geo_target_city_97" model="devinsider_api.geo_target_city">
+            <field name="name">USA</field>
+            <field name="country_id" eval="ref('geo_target_country_6')"/>
+        </record>
+
+    </data>
+</odoo>

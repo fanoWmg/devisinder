@@ -92,20 +92,23 @@ class ResPartnerInherit(models.Model):
     di_contact_status = fields.Char(string="Contact Status", readonly=True)
     di_date_signup = fields.Date(string="Date of Sign-Up", readonly=True)
     di_date_last_login = fields.Date(string="Date of the last Log-In", readonly=True)
-    di_active_company_page = fields.Boolean(string="Active Company Page (Created, affiliated or Claimed Ownership)", readonly=True)
+    di_active_company_page = fields.Boolean(string="Active Company Page (Created, affiliated or Claimed Ownership)",
+                                            readonly=True)
     di_date_creation_claimed_own = fields.Date(string="Date of Creation/Claimed Ownership", readonly=True)
     # Mirror Comminity
     di_discussion_categ_followed = fields.Char(string="Discussion Categorie Followed", readonly=True)
-    di_label_followed = fields.Char(string="Label Followed",  readonly=True)
+    di_label_followed = fields.Char(string="Label Followed", readonly=True)
     di_date_last_forum_contrib = fields.Char(string="Date of the last Forum Contribution", readonly=True)
     di_amount_forum_created = fields.Char(string="Amount of Forum Created", readonly=True)
     di_amount_forum_replie = fields.Char(string="Amount of Forum replies", readonly=True)
-    di_amount_replie_qualified_best_answer = fields.Char(string='Amount of replies qualified as "Best Answer"', readonly=True)
+    di_amount_replie_qualified_best_answer = fields.Char(string='Amount of replies qualified as "Best Answer"',
+                                                         readonly=True)
     di_date_last_article_contrib = fields.Char(string="Date of the last Article Contributions", readonly=True)
     di_amount_article_created = fields.Char(string="Amount of article Created", readonly=True)
     di_date_last_pres_realese_contrib = fields.Char(string="Date of the Last Press Release Contribution", readonly=True)
     di_amount_press_release_created = fields.Char(string="Amount of Press Releases Created", readonly=True)
-    di_date_last_programme_reviews_contrib = fields.Char(string="Date of the last Program Reviews Contributions", readonly=True)
+    di_date_last_programme_reviews_contrib = fields.Char(string="Date of the last Program Reviews Contributions",
+                                                         readonly=True)
     di_amount_programme_reviews = fields.Char(string="Amount of Program Review Created", readonly=True)
     di_community_profil_description = fields.Char(string="Community Profil Description", readonly=True)
     # Classified Ads
@@ -113,7 +116,8 @@ class ResPartnerInherit(models.Model):
     di_amount_ads_created = fields.Date(string="Amount of Ads Created", readonly=True)
     di_amount_ads_contacted = fields.Char(string="Amount Ads Contacted", readonly=True)
     # partner programm matchmacking
-    di_date_last_partner_program_contacted = fields.Char(string="Date of the last partner program contacted", readonly=True)
+    di_date_last_partner_program_contacted = fields.Char(string="Date of the last partner program contacted",
+                                                         readonly=True)
     di_amount_distinct_partner_programs_proact_contacted = fields.Float(
         string="Amount of distinct Partner Programs proactively contacted", readonly=True)
     di_list_partner_program_contacted = fields.Char(string="List of Partner Programs contacted", readonly=True)
@@ -170,17 +174,24 @@ class ResPartnerInherit(models.Model):
     annual_turnover = fields.Char(string="Annual Turnover", readonly=True)
     annual_turnover_bracket = fields.Char(string="Annual Turnover Bracket", readonly=True)
     looking_funding = fields.Char(string="Looking for funding?")
-    amount_targeted = fields.Char(string="Amount targeted")
+    amount_targeted = fields.Monetary(string="Amount targeted")
     di_amount_targeted = fields.Char(string="Amount targeted", readonly=True)
     number_funding_round = fields.Integer(string="Number of Funding Round")
     last_funding_date = fields.Date(string="Last Funding Date")
     di_last_funding_date = fields.Date(string="Last Funding Date", readonly=True)
-    total_funding_amount = fields.Char(string="Total Funding Amount")
+    total_funding_amount = fields.Monetary(string="Total Funding Amount")
 
     # Strategy
-    licensing_model = fields.Char(string="Licensing Model")
+    licensing_model = fields.Selection(
+        [('on_promise', 'On-Promise'), ('sass', 'Sass'), ('hybrid', 'Hybrid'),
+         ('embedded_software', 'Embedded Software (OEM)')],
+        string="Licensing Model")
+    #geo_target_market = fields.Selection([('')])
     di_licensing_model = fields.Char(string="Licensing Model", readonly=True)
-    distribution_channel = fields.Char(string="Distribution channel")
+    distribution_channel = fields.Selection(
+        [('direct_end_user', 'Direct to End-User'), ('sell_through_dealer_network', 'Sell through a Dealer Network'),
+         ('sell_through_var', 'Sell through a VAR')],
+        string="Distribution channel")
     di_distribution_channel = fields.Char(string="Distribution channel", readonly=True)
     number_product = fields.Char(string="Number of product")
     technology_partnership = fields.Char(string="Technology Partnership")
@@ -207,7 +218,8 @@ class ResPartnerInherit(models.Model):
 
     # pitch
     di_paint_point_solving = fields.Char(string="What Paint Point are you solving?", readonly=True)
-    di_key_competitive_differentiator = fields.Char(string="What are your key competitive differentiator?", readonly=True)
+    di_key_competitive_differentiator = fields.Char(string="What are your key competitive differentiator?",
+                                                    readonly=True)
     di_make_team_uniques = fields.Char(string="What Makes your team unique", readonly=True)
     devinsider_pitch = fields.Char(string="Devinsider Pitch", readonly=True)
 
@@ -216,8 +228,10 @@ class ResPartnerInherit(models.Model):
 
     # Company page engagement mirror
     di_last_modif_date = fields.Date(string="Last Modified Date", readonly=True)
-    di_company_page_compl_prog_matchmaking = fields.Char(string="Company Page completed for Programs Matchmaking", readonly=True)
-    di_company_page_compl_invest_matchmaking = fields.Char(string="Company page completed for Investor Matchmaking", readonly=True)
+    di_company_page_compl_prog_matchmaking = fields.Char(string="Company Page completed for Programs Matchmaking",
+                                                         readonly=True)
+    di_company_page_compl_invest_matchmaking = fields.Char(string="Company page completed for Investor Matchmaking",
+                                                           readonly=True)
     di_devinsider_pitch_published = fields.Char(string="Devinsider pitch published", readonly=True)
 
     # Classified ads company

@@ -35,6 +35,7 @@
         'data/template_mail_reset_pswd.xml',
         'data/template_mail_verified_pro.xml',
         'data/template_mail_update_mail.xml',
+        'data/geo_target_data.xml',
 
     ],
     # only loaded in demonstration mode

@@ -21,4 +21,13 @@ class MirrorController(http.Controller):
     @http.route('/devinsider_api/mirror', auth='public', type='json')
     def mirror(self, **kw):
         request.session.authenticate(DB, LOGIN, PSWD)
+        # state = json.loads(kw)
+        print(kw)
+        return {
+            'status': 'status',
+            'message': 'all_message'
+        }
+
+
+
 
