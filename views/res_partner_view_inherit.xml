@@ -7,6 +7,14 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <data>
+                    <xpath expr="//field[@name='image_1920']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='name']" position="attributes">
+                        <attribute name="class">o_field_char o_field_widget o_input name_partner_input</attribute>
+                    </xpath>
+
+
                     <xpath expr="//field[@name='parent_id']" position="attributes">
                         <attribute name="invisible">1</attribute>
                     </xpath>
@@ -44,11 +52,17 @@
                                 <h1>
                                     <field name="name"/>
                                 </h1>
+                                <div class="avatar">
+                                    <field name="image_1920" widget="image" class="oe_avatar"
+                                           options="{'preview_image': 'image_128'}" on_change="1"
+                                           modifiers="{'invisible':true}"/>
+                                </div>
                                 <field name="parent_id" widget="res_partner_many2one" placeholder="Company"
                                        domain="[('is_company', '=', True)]"
                                        context="{'default_is_company': True, 'show_vat': True}"
                                        attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"
                                        on_change="1" can_create="true" can_write="true" modifiers="{'invisible':true}"/>
+
 
                                 <div class="cadre" id="cadre_">
                                     <group>
@@ -455,7 +469,6 @@
                             </h1>
                             <div class="cadre" id="cadre_mir">
                                 <group>
-
                                     <div id="not_hide_mir">
                                         <div class="o_horizontal_separator">Primary Information</div>
                                         <div class="item_display">
@@ -470,28 +483,8 @@
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
-
                                         </div>
                                     </div>
-
-                                    <div class="o_horizontal_separator">Primary Information</div>
-                                    <field name="di_contact_category"/>
-                                    <field name="di_contact_status"/>
-                                    <field name="di_company_name"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_company_lega_name"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_hq_email" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_fistname"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                    <field name="di_lastname"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                    <field name="di_email_pro"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                    <field name="di_email_email_score"/>
-                                    <field name="di_email_hard_bounced"/>
-                                    <field name="di_email_soft_bounced"/>
-
                                 </group>
                                 <div id="display_cadre_mir">
                                     <group>
