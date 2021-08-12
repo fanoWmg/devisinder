@@ -167,8 +167,8 @@ class ResPartnerInherit(models.Model):
     email_3 = fields.Char(string="Email")
 
     # Financials
-    annual_turnover = fields.Char(string="Annual Turnover")
-    annual_turnover_bracket = fields.Char(string="Annual Turnover Bracket")
+    annual_turnover = fields.Char(string="Annual Turnover", readonly=True)
+    annual_turnover_bracket = fields.Char(string="Annual Turnover Bracket", readonly=True)
     looking_funding = fields.Char(string="Looking for funding?")
     amount_targeted = fields.Char(string="Amount targeted")
     di_amount_targeted = fields.Char(string="Amount targeted", readonly=True)
@@ -208,8 +208,8 @@ class ResPartnerInherit(models.Model):
     # pitch
     di_paint_point_solving = fields.Char(string="What Paint Point are you solving?", readonly=True)
     di_key_competitive_differentiator = fields.Char(string="What are your key competitive differentiator?", readonly=True)
-    di_make_team_uniques = fields.Char(string="What Makes your team unique")
-    devinsider_pitch = fields.Char(string="Devinsider Pitch")
+    di_make_team_uniques = fields.Char(string="What Makes your team unique", readonly=True)
+    devinsider_pitch = fields.Char(string="Devinsider Pitch", readonly=True)
 
     # contact information mirror company
     di_pre_listed_comp_page_devinsider = fields.Char(string="Pre-listed Company Page on Devinsider", readonly=True)
@@ -226,7 +226,7 @@ class ResPartnerInherit(models.Model):
 
     # partner programm matchmaking
     amount_distinct_partner_prog_contact_isv = fields.Char(
-        string="Amount of distinct Partner programs that have contacted this ISV")
+        string="Amount of distinct Partner programs that have contacted this ISV", readonly=True)
 
     # @api.onchange('first_name', 'last_name')
     # def onchange_first_last_name(self):
