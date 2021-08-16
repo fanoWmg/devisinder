@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import http
 from odoo.http import request, Response
+from . import main
 
 import json
 
@@ -20,9 +21,8 @@ class MirrorController(http.Controller):
 
     @http.route('/devinsider_api/mirror', auth='public', type='json')
     def mirror(self, **kw):
-        request.session.authenticate(DB, LOGIN, PSWD)
-        # state = json.loads(kw)
-        print(kw)
+        main.DevinsiderConnection.__init__(main)
+
         return {
             'status': 'status',
             'message': 'all_message'

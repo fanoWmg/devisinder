@@ -144,8 +144,8 @@ class ResPartnerInherit(models.Model):
     contry = fields.Char(string="Contry(ies)")
     comapany_size = fields.Char(string="Company Size")
     di_comapany_size = fields.Char(string="Company Size", readonly=True)
-    pre_listed_comp_page_devinsider = fields.Char(string="Pre-listed Company Page on Devinsider")
-    active_comp_page = fields.Char(string="Active Company Page (Created or Claimed Ownership)")
+    pre_listed_comp_page_devinsider = fields.Boolean(string="Pre-listed Company Page on Devinsider")
+    active_comp_page = fields.Boolean(string="Active Company Page (Created or Claimed Ownership)")
 
     phone_1 = fields.Char(string="Phone")
     email_1 = fields.Char(string="Email")
@@ -186,7 +186,7 @@ class ResPartnerInherit(models.Model):
         [('on_promise', 'On-Promise'), ('sass', 'Sass'), ('hybrid', 'Hybrid'),
          ('embedded_software', 'Embedded Software (OEM)')],
         string="Licensing Model")
-    #geo_target_market = fields.Selection([('')])
+    geo_target_market = fields.Many2one('devinsider_api.geo_target_city', string="Geo Target Market")
     di_licensing_model = fields.Char(string="Licensing Model", readonly=True)
     distribution_channel = fields.Selection(
         [('direct_end_user', 'Direct to End-User'), ('sell_through_dealer_network', 'Sell through a Dealer Network'),
@@ -194,7 +194,7 @@ class ResPartnerInherit(models.Model):
         string="Distribution channel")
     di_distribution_channel = fields.Char(string="Distribution channel", readonly=True)
     number_product = fields.Char(string="Number of product")
-    technology_partnership = fields.Char(string="Technology Partnership")
+    technology_partnership = fields.Many2one('devinsider_api.technology_partnership_line', string="Technology Partnership")
     technology_partnership_place = fields.Char(string="Technology partnerships in place")
     di_technology_partnership_place = fields.Char(string="Technology partnerships in place", readonly=True)
 
@@ -266,3 +266,15 @@ class ResPartnerInherit(models.Model):
                 'company_type': 'person'
             })
         return partner
+
+    def open_record(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'res.partner',
+            'name': 'Record name',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'view_id': self.env.ref('base.view_partner_form').id,
+            'res_id': self.id,
+            'target': 'current',
+        }

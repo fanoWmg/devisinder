@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--               AFRICA                   -->
+        <record id="tech_part_1" model="devinsider_api.technology_partnership">
+            <field name="name">Embedded Software (OEM)</field>
+        </record>
+        <record id="tech_part_line_1" model="devinsider_api.technology_partnership_line">
+            <field name="name">3D Visualization / Engineering</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_2" model="devinsider_api.technology_partnership_line">
+            <field name="name">Acccounting And Finance</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_3" model="devinsider_api.technology_partnership_line">
+            <field name="name">API</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_4" model="devinsider_api.technology_partnership_line">
+            <field name="name">AR/ VR</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_5" model="devinsider_api.technology_partnership_line">
+            <field name="name">Artificial Intelligence</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_6" model="devinsider_api.technology_partnership_line">
+            <field name="name">BI and Analytics</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_7" model="devinsider_api.technology_partnership_line">
+            <field name="name">Blockchain</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_8" model="devinsider_api.technology_partnership_line">
+            <field name="name">BPM / ERP</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_9" model="devinsider_api.technology_partnership_line">
+            <field name="name">Communication And Collaboration</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_10" model="devinsider_api.technology_partnership_line">
+            <field name="name">Content Manageme</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_11" model="devinsider_api.technology_partnership_line">
+            <field name="name">CRM</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_12" model="devinsider_api.technology_partnership_line">
+            <field name="name">Document Management</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_13" model="devinsider_api.technology_partnership_line">
+            <field name="name">E-Commerce</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_14" model="devinsider_api.technology_partnership_line">
+            <field name="name">Legal</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_15" model="devinsider_api.technology_partnership_line">
+            <field name="name">Licensing</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_16" model="devinsider_api.technology_partnership_line">
+            <field name="name">Maps and Navigation</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_17" model="devinsider_api.technology_partnership_line">
+            <field name="name">Payment and Invoicing</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_18" model="devinsider_api.technology_partnership_line">
+            <field name="name">Security</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_19" model="devinsider_api.technology_partnership_line">
+            <field name="name">Streaming and Broadcasting</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+        <record id="tech_part_line_20" model="devinsider_api.technology_partnership_line">
+            <field name="name">Virtualization</field>
+            <field name="techno_id" eval="ref('tech_part_1')"/>
+        </record>
+    </data>
+</odoo>

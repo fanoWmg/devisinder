@@ -1,19 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import http
 from odoo.http import request, Response
-
-import json
-
-# test en dev
-DB = "crm"
-LOGIN = "arthur@mediadev.com"
-PSWD = "Qwerty789"
-
-
-# test local
-#DB = "devisinder"
-#LOGIN = "admin"
-#PSWD = "admin1234"
+from . import main
 
 
 class CrmController(http.Controller):
@@ -23,7 +11,7 @@ class CrmController(http.Controller):
         status = 200
         all_message = []
         company = ['person', 'company']
-        request.session.authenticate(DB, LOGIN, PSWD)
+        main.DevinsiderConnection.__init__(main)
         res_partner = request.env['res.partner']
         crm_lead = request.env['crm.lead']
         crm_company = res_partner.search([('name', '=', company_name)], limit=1)
