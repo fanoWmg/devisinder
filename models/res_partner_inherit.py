@@ -9,14 +9,14 @@ class ResPartnerInherit(models.Model):
 
     # first_name = fields.Char(string="First name")
     # last_name = fields.Char(string="Last name")
-    email_score = fields.Boolean(string="Email Score")
+    address = fields.Char(string="Address")
+    email_score = fields.Char(string="Email Score")
     email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
     email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
     email_pro = fields.Char(string="Email")
     company_type = fields.Selection(string='Company Type',
                                     selection=[('person', 'Individual'), ('company', 'Company')],
                                     compute='_compute_company_type', inverse='_write_company_type', default='person')
-
     contact_category = fields.Selection([
         ('software_vendor', 'Software Vendor'),
         ('reseller', 'Reseller'),
@@ -67,7 +67,7 @@ class ResPartnerInherit(models.Model):
     notes = fields.Text(string='Notes')
 
     ###### DI Mirror ######
-
+    id_di_mirror = fields.Char(string='Mirror indentification')
     di_name = fields.Char(string='Name', readonly=True)
     di_email_pro = fields.Char(string='Email', readonly=True)
     di_fistname = fields.Char(string='First Name', readonly=True)
@@ -81,9 +81,11 @@ class ResPartnerInherit(models.Model):
     di_phone = fields.Char(string='Phone', readonly=True)
     di_linkedin = fields.Char(string='Linkedin', readonly=True)
     di_about = fields.Text(string='About', readonly=True)
-    di_email_email_score = fields.Char(string="Email score", readonly=True)
+
+    di_email_score = fields.Char(string="Email score", readonly=True)
     di_email_hard_bounced = fields.Boolean(string="Email Hard Bounced", readonly=True)
     di_email_soft_bounced = fields.Boolean(string="Email Soft Bounced", readonly=True)
+    # Profil overview
     di_first_name_po = fields.Char(string="First Name", readonly=True)
     di_last_name_po = fields.Char(string="Last Name", readonly=True)
     di_job_location = fields.Char(string="Location", readonly=True)
@@ -99,10 +101,10 @@ class ResPartnerInherit(models.Model):
     di_discussion_categ_followed = fields.Char(string="Discussion Categorie Followed", readonly=True)
     di_label_followed = fields.Char(string="Label Followed", readonly=True)
     di_date_last_forum_contrib = fields.Char(string="Date of the last Forum Contribution", readonly=True)
-    di_amount_forum_created = fields.Char(string="Amount of Forum Created", readonly=True)
-    di_amount_forum_replie = fields.Char(string="Amount of Forum replies", readonly=True)
-    di_amount_replie_qualified_best_answer = fields.Char(string='Amount of replies qualified as "Best Answer"',
-                                                         readonly=True)
+    di_amount_forum_created = fields.Float(string="Amount of Forum Created", readonly=True)
+    di_amount_forum_replie = fields.Float(string="Amount of Forum replies", readonly=True)
+    di_amount_replie_qualified_best_answer = fields.Float(string='Amount of replies qualified as "Best Answer"',
+                                                          readonly=True)
     di_date_last_article_contrib = fields.Char(string="Date of the last Article Contributions", readonly=True)
     di_amount_article_created = fields.Char(string="Amount of article Created", readonly=True)
     di_date_last_pres_realese_contrib = fields.Char(string="Date of the Last Press Release Contribution", readonly=True)
@@ -113,8 +115,8 @@ class ResPartnerInherit(models.Model):
     di_community_profil_description = fields.Char(string="Community Profil Description", readonly=True)
     # Classified Ads
     di_date_last_ads_contrib = fields.Date(string="Date of Last Ads Contribution", readonly=True)
-    di_amount_ads_created = fields.Date(string="Amount of Ads Created", readonly=True)
-    di_amount_ads_contacted = fields.Char(string="Amount Ads Contacted", readonly=True)
+    di_amount_ads_created = fields.Float(string="Amount of Ads Created", readonly=True)
+    di_amount_ads_contacted = fields.Char(string="Amount of Ads Contacted", readonly=True)
     # partner programm matchmacking
     di_date_last_partner_program_contacted = fields.Char(string="Date of the last partner program contacted",
                                                          readonly=True)
@@ -171,8 +173,8 @@ class ResPartnerInherit(models.Model):
     email_3 = fields.Char(string="Email")
 
     # Financials
-    annual_turnover = fields.Char(string="Annual Turnover", readonly=True)
-    annual_turnover_bracket = fields.Char(string="Annual Turnover Bracket", readonly=True)
+    di_annual_turnover = fields.Char(string="Annual Turnover", readonly=True)
+    di_annual_turnover_bracket = fields.Char(string="Annual Turnover Bracket", readonly=True)
     looking_funding = fields.Char(string="Looking for funding?")
     amount_targeted = fields.Monetary(string="Amount targeted")
     di_amount_targeted = fields.Char(string="Amount targeted", readonly=True)
@@ -194,7 +196,8 @@ class ResPartnerInherit(models.Model):
         string="Distribution channel")
     di_distribution_channel = fields.Char(string="Distribution channel", readonly=True)
     number_product = fields.Char(string="Number of product")
-    technology_partnership = fields.Many2one('devinsider_api.technology_partnership_line', string="Technology Partnership")
+    technology_partnership = fields.Many2one('devinsider_api.technology_partnership_line',
+                                             string="Technology Partnership")
     technology_partnership_place = fields.Char(string="Technology partnerships in place")
     di_technology_partnership_place = fields.Char(string="Technology partnerships in place", readonly=True)
 
@@ -213,7 +216,8 @@ class ResPartnerInherit(models.Model):
     di_geo_target_market = fields.Char(string="Geo. Target Market", readonly=True)
     di_product_development = fields.Char(string="product Development", readonly=True)
     di_expansion_strategy = fields.Char(string="Expansion Strategy", readonly=True)
-    di_technology_partnership_interest = fields.Char(string="Technology Partnership interests", readonly=True)
+    di_technology_partnership_interest = fields.Many2one('devinsider_api.technology_partnership_line',
+                                                         string="Technology Partnership interests", readonly=True)
     di_annual_turnover_chart = fields.Char(string="Annual Turnover Chart", readonly=True)
 
     # pitch
@@ -239,8 +243,17 @@ class ResPartnerInherit(models.Model):
     di_contributed_last_60_day = fields.Char(string="Contributed in the last 60 days", readonly=True)
 
     # partner programm matchmaking
-    amount_distinct_partner_prog_contact_isv = fields.Char(
+    di_amount_distinct_partner_prog_contact_isv = fields.Char(
         string="Amount of distinct Partner programs that have contacted this ISV", readonly=True)
+
+    # programme partner
+    is_partner_programme = fields.Boolean(string="I a partner programme")
+    oem_programme_id = fields.Many2one('devinsider_api.programme', string="Programme")
+    oem_affiliated_partner_id = fields.Many2one('res.partner', string="Affiliated Partner")
+    oem_program_segment = fields.Char(string='Program Segment')
+    oem_program_name = fields.Char(string='Program Name')
+    oem_program_type = fields.Char(string='Program Type')
+
 
     # @api.onchange('first_name', 'last_name')
     # def onchange_first_last_name(self):
