@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record model="ir.ui.view" id="view_partner_form">
+            <field name="name">Partner Form with tracking emails</field>
+            <field name="model">res.partner</field>
+            <field name="priority">46</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="name" invisible="1"/>
+                <!-- <xpath expr="//field[@name='email']/.." position="after">
+                     <field name="email_score" widget="progressbar"
+                            attrs="{'invisible': [('email', '=', False)]}"/>
+                     <field name="email_bounced"
+                            attrs="{'invisible': [('email', '=', False)]}"/>
+                 </xpath>-->
+            </field>
+        </record>
         <record id="ir_res_partner_view_form_inherit" model="ir.ui.view">
             <field name="name">ir.mail.server.inherit.view.form</field>
             <field name="model">res.partner</field>
@@ -10,6 +25,13 @@
                     <xpath expr="//field[@name='image_1920']" position="attributes">
                         <attribute name="invisible">1</attribute>
                     </xpath>
+                    <!--<xpath expr="//field[@name='email_score']" position="attributes">
+                        <attribute name="attrs">{'invisible': [('email', '!=', '41212')]}"</attribute>
+                    </xpath>-->
+                    <!--<xpath expr="//field[@name='email_score']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>-->
+
                     <xpath expr="//field[@name='type']" position="attributes">
                         <attribute name="invisible">1</attribute>
                     </xpath>
@@ -45,12 +67,16 @@
                                 Individual
                             </button>
                             <button class="tablinks active" onclick="openCity(event, 'individual_company')"
-                                    attrs="{'invisible':['|', ('company_type','=','person'), ('contact_category','=','partner_program')]}">
+                                    attrs="{'invisible':['|', ('company_type','=','person'), ('contact_category','in',['partner_program', 'institutional_investor'])]}">
                                 Company
                             </button>
                             <button class="tablinks active" onclick="openCity(event, 'individual_company')"
                                     attrs="{'invisible':['|', ('contact_category','!=','partner_program'), ('company_type', 'in', ['person'])]}">
                                 Partner program
+                            </button>
+                            <button class="tablinks active" onclick="openCity(event, 'individual_company')"
+                                    attrs="{'invisible':['|', ('contact_category', '!=', 'institutional_investor'), ('company_type', 'in', ['person'])]}">
+                                Organization
                             </button>
                             <button class="tablinks" onclick="openCity(event, 'mirror')">Devinisider Mirror</button>
                         </div>
@@ -116,8 +142,8 @@
                                                 <field name="last_name"
                                                        attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
                                                 />
-                                                <field name="email_score"/>
                                                 <field name="email_pro"/>
+                                                <field name="email_score" widget="progressbar"/>
                                                 <field name="email_hard_bounced"/>
                                                 <field name="email_soft_bounced"/>
                                             </group>
@@ -158,7 +184,8 @@
                                                attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                                         <field name="address"
                                                attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                        <field name="notes" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+
+
                                         <field name="horizontal_ids"
                                                attrs="{'invisible': ['|', ('company_type', '=', 'person'), ('contact_category','=','partner_program')]}"
                                                widget="many2many_tags"/>
@@ -262,6 +289,8 @@
                                                    options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
                                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                         </div>
+                                        <field name="notes"/><!--tsi tadidi n tokon hisy note-->
+
 
                                         <!-- <field name="vat" placeholder="e.g. BE0477472701"
                                                 attrs="{'readonly': [('parent_id','!=',False)]}"/>-->
@@ -321,23 +350,23 @@
                                 </group>
                                 <group>
                                     <div class="o_horizontal_separator">
-                                        <span attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}">
+                                        <span attrs="{'invisible': ['|', ('contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}">
                                             Strategy
                                         </span>
                                     </div>
                                     <field name="licensing_model"
-                                           attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}"/>
                                     <field name="distribution_channel"
-                                           attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}"/>
                                     <field name="geo_target_market"
-                                           attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"
+                                           attrs="{'invisible': ['|', ('contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}"
                                            options="{'no_create': True}"/>
                                     <field name="number_product"
-                                           attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}"/>
                                     <field name="technology_partnership"
-                                           attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}"/>
                                     <field name="technology_partnership_place"
-                                           attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}"/>
                                 </group>
                                 <group>
                                     <div class="o_horizontal_separator">
@@ -579,17 +608,27 @@
                                     <field name="di_linkedin"
                                            attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                                     <field name="di_about" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+
                                     <field name="di_horizontal"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_vertical" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                    <field name="di_oem_program_segment"
+                                           attrs="{'invisible': ['|', ('di_contact_category','!=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                    <field name="di_oem_program_name"
+                                           attrs="{'invisible': ['|', ('di_contact_category','!=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                    <field name="oem_program_type"
+                                           attrs="{'invisible': ['|', ('di_contact_category','!=','partner_program'), ('company_type', '=', 'person')]}"/>
+
+                                    <field name="di_vertical"
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_company_name"
                                            attrs="{'invisible': [('company_type', '=', 'person')]}"/>
                                     <field name="di_company_lega_name"
                                            attrs="{'invisible': [('company_type', '=', 'person')]}"/>
                                     <field name="di_website" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_founded" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                    <field name="di_founded"
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_comapany_size"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_heasquarter_location"
                                            attrs="{'invisible': [('company_type', '=', 'person')]}"/>
                                     <field name="di_company_summary"
@@ -620,19 +659,25 @@
                             <group>
                                 <group>
                                     <div class="o_horizontal_separator">
-                                        <span attrs="{'invisible': [('company_type', '=', 'company')]}">Company Page
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','in',['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}">
+                                            Company Page
                                         </span>
-                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">Leadership Team
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}">
+                                            Leadership Team
+                                        </span>
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','!=','partner_program'), ('company_type', '=', 'person')]}">
+                                            Overview
                                         </span>
 
                                     </div>
                                     <field name="di_active_company_page"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','in',['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
                                     <field name="di_date_creation_claimed_own"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','in',['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
                                     <field name="di_amount_team"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
-                                    <field name="di_members" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}"/>
+                                    <field name="di_members"
+                                           attrs="{'invisible': ['|', ('di_contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'person')]}"/>
                                 </group>
                                 <group>
                                     <div class="o_horizontal_separator">
@@ -658,8 +703,11 @@
                                         <span attrs="{'invisible': [('company_type', '=', 'company')]}">
                                             Community
                                         </span>
-                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}">
                                             Strategy
+                                        </span>
+                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">
+                                            Solutions
                                         </span>
                                     </div>
                                     <field name="di_discussion_categ_followed"
@@ -690,136 +738,217 @@
                                            attrs="{'invisible': [('company_type', '=', 'company')]}"/>
 
                                     <field name="di_licensing_model"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_distribution_channel"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_geo_target_market"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_technology_partnership_place"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_technology_partnership_interest"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_product_development"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_expansion_strategy"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
+
+
                                 </group>
                                 <group>
                                     <div class="o_horizontal_separator">
-                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}">
                                             Classified Ads
                                         </span>
+
                                     </div>
                                     <field name="di_date_last_ads_contrib"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_contributed_last_30_day"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_contributed_last_60_day"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_amount_ads_created"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_amount_ads_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                 </group>
                             </group>
 
                             <group>
                                 <group>
                                     <div class="o_horizontal_separator">
-                                        <span attrs="{'invisible': [('company_type', '=', 'company')]}">Classified Ads
+                                        <span attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'company')]}">
+                                            Affiliated Program
                                         </span>
-                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">Financials</span>
+                                        <span attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}">
+                                            key Benefits
+                                        </span>
+                                    </div>
+                                    <!--<field name="di_amount_affiliated"
+                                           attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'company')]}"/>
+                                    <field name="partner_program_1"
+                                           attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'company')]}"/>
+                                    <field name="partner_program_2"
+                                           attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'company')]}"/>-->
+                                </group>
+
+
+                            </group>
+
+                            <group>
+                                <group>
+                                    <div class="o_horizontal_separator">
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'company')]}">
+                                            Classified Ads
+                                        </span>
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}">
+                                            Financials
+                                        </span>
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}">
+                                            Solution
+                                        </span>
+                                        <span attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}">
+                                            Getting Started
+                                        </span>
                                     </div>
                                     <field name="di_date_last_ads_contrib"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'company')]}"/>
                                     <field name="di_amount_ads_created"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'company')]}"/>
                                     <field name="di_amount_ads_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'company')]}"/>
                                     <field name="di_annual_turnover_bracket"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_amount_targeted"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_last_funding_date"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_annual_turnover_chart"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                 </group>
                                 <group>
                                     <div class="o_horizontal_separator">
-                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">Partner Program
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}">
+                                            Partner Program
                                             Matchmaking
                                         </span>
                                     </div>
 
                                     <field name="di_date_last_partner_program_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_amount_distinct_partner_programs_proact_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_amount_distinct_partner_prog_contact_isv"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                 </group>
                             </group>
                             <group>
                                 <group>
                                     <div class="o_horizontal_separator">
-                                        <span attrs="{'invisible': [('company_type', '=', 'company')]}">Partner Program
+                                        <span attrs="{'invisible': ['|', ('di_contact_category', 'in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}">
+                                            Partner Program
                                             Matchmaking
                                         </span>
-                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">Pitch</span>
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}">
+                                            Pitch
+                                        </span>
+                                        <span attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}">
+                                            Resources
+                                        </span>
                                     </div>
                                     <field name="di_date_last_partner_program_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category', 'in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
                                     <field name="di_amount_distinct_partner_programs_proact_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category', 'in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
                                     <field name="di_list_partner_program_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category', 'in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
                                     <field name="di_paint_point_solving"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_key_competitive_differentiator"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_make_team_uniques"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="devinsider_pitch"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                 </group>
                                 <group>
                                     <div class="o_horizontal_separator">
-                                        <span attrs="{'invisible': [('company_type', '=', 'person')]}">Investor
+                                        <span attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}">
+                                            Investor
                                             Matchmaking
                                         </span>
                                     </div>
                                     <field name="di_date_last_investor_unlocked"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_date_last_investor_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_amount_investor_unclocked"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_amount_distinct_invertor_programs_proact_contacted"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                     <field name="di_amount_distinct_partner_prog_contact_isv"
-                                           attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                                           attrs="{'invisible': ['|', ('di_contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                 </group>
+
+                            </group>
+
+                            <group>
+                                <div class="o_horizontal_separator">
+                                    <span attrs="{'invisible': ['|', ('di_contact_category', 'in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}">
+                                        Investor
+                                        Matchmaking
+                                    </span>
+                                    <span attrs="{'invisible': ['|', ('di_contact_category', 'not in', ['partner_program', 'institutional_investor'])]}">
+                                        ISV
+                                        Matchmaking
+                                    </span>
+
+                                </div>
+                                <field name="di_oem_amount_isvs_unlocked"
+                                       attrs="{'invisible': ['|', ('di_contact_category', 'not in', ['partner_program', 'institutional_investor'])]}"/>
+                                <field name="di_oem_amount_distinct_isvs_proact_contacted"
+                                       attrs="{'invisible': ['|', ('di_contact_category', 'not in', ['partner_program', 'institutional_investor'])]}"/>
+                                <field name="di_oem_date_last_isv_contacted"
+                                       attrs="{'invisible': ['|', ('di_contact_category', 'not in', ['partner_program', 'institutional_investor'])]}"/>
+                                <field name="di_oem_distinct_isvs_contacted_part_prog"
+                                       attrs="{'invisible': ['|', ('di_contact_category', 'not in', ['partner_program', 'institutional_investor'])]}"/>
+                                <field name="di_date_last_investor_unlocked"
+                                       attrs="{'invisible': ['|', ('di_contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
+                                <field name="di_date_last_investor_contacted"
+                                       attrs="{'invisible': ['|', ('di_contact_category', 'in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
+                                <field name="di_amount_investor_unclocked"
+                                       attrs="{'invisible': ['|', ('di_contact_category', 'in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
+
+                                <field name="di_amount_distinct_invertor_programs_proact_contacted"
+                                       attrs="{'invisible': ['|', ('di_contact_category','in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
+                                <field name="di_list_investor_contacted"
+                                       attrs="{'invisible': ['|', ('di_contact_category', 'in', ['partner_program', 'institutional_investor']), ('company_type', '=', 'company')]}"/>
+                            </group>
+                            <group>
+                                <div class="o_horizontal_separator">
+                                    <span attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}">
+                                        Events
+                                    </span>
+                                </div>
+                                <field name="di_oem_date_last_event_published"
+                                       attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}"/>
+                                <field name="di_oem_amount_event_published"
+                                       attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}"/>
 
                             </group>
                             <group>
                                 <div class="o_horizontal_separator">
-                                    <span attrs="{'invisible': [('company_type', '=', 'company')]}">Investor
-                                        Matchmaking
+                                    <span attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}">
+                                        Classified Ads
                                     </span>
                                 </div>
-                                <field name="di_date_last_investor_unlocked"
-                                       attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                <field name="di_date_last_investor_contacted"
-                                       attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                <field name="di_amount_investor_unclocked"
-                                       attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                                <field name="di_oem_date_last_ads_contacted"
+                                       attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}"/>
+                                <field name="di_oem_amount_ads_contacted"
+                                       attrs="{'invisible': ['|', ('di_contact_category', '!=', 'partner_program'), ('company_type', '=', 'person')]}"/>
 
-                                <field name="di_amount_distinct_invertor_programs_proact_contacted"
-                                       attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                                <field name="di_list_investor_contacted"
-                                       attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                             </group>
+
                             <notebook colspan="4">
                                 <page string="Contacts &amp; Addresses">
                                     <field name="child_ids" mode="kanban">
@@ -973,6 +1102,10 @@
                                                    options="{'no_create': True}"/>
                                         </group>
                                     </group>
+                                </page>
+                                <page string="Invoicing"/>
+                                <page name='internal_notes' string="Internal Notes">
+                                    <field name="comment" placeholder="Internal note..."/>
                                 </page>
                                 <page name='internal_notes' string="Internal Notes">
                                     <field name="comment" placeholder="Internal note..."/>

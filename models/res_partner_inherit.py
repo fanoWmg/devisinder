@@ -10,7 +10,7 @@ class ResPartnerInherit(models.Model):
     # first_name = fields.Char(string="First name")
     # last_name = fields.Char(string="Last name")
     address = fields.Char(string="Address")
-    email_score = fields.Char(string="Email Score")
+    # email_score = fields.Char(string="Email Score")
     email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
     email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
     email_pro = fields.Char(string="Email")
@@ -90,7 +90,15 @@ class ResPartnerInherit(models.Model):
     di_last_name_po = fields.Char(string="Last Name", readonly=True)
     di_job_location = fields.Char(string="Location", readonly=True)
 
-    di_contact_category = fields.Char(string="Contact Category", readonly=True)
+    di_contact_category = fields.Selection([
+        ('software_vendor', 'Software Vendor'),
+        ('reseller', 'Reseller'),
+        ('gest', 'Gest'),
+        ('expert_contributor', 'Expert Contributor'),
+        ('institutional_investor', 'Institutional Investor'),
+        ('individual_investor', 'Individual Investor'),
+        ('partner_program', 'Partner Program'),
+    ], string='Contact Category')
     di_contact_status = fields.Char(string="Contact Status", readonly=True)
     di_date_signup = fields.Date(string="Date of Sign-Up", readonly=True)
     di_date_last_login = fields.Date(string="Date of the last Log-In", readonly=True)
@@ -251,9 +259,49 @@ class ResPartnerInherit(models.Model):
     oem_programme_id = fields.Many2one('devinsider_api.programme', string="Programme")
     oem_affiliated_partner_id = fields.Many2one('res.partner', string="Affiliated Partner")
     oem_program_segment = fields.Char(string='Program Segment')
+    di_oem_program_segment = fields.Char(string='Program Segment')
     oem_program_name = fields.Char(string='Program Name')
+    di_oem_program_name = fields.Char(string='Program Name')
     oem_program_type = fields.Char(string='Program Type')
+    di_oem_program_type = fields.Char(string='Program Type')
+    di_oem_date_last_event_published = fields.Char(string='Date Last Event Published')
+    di_oem_amount_event_published = fields.Date(string='Amount of event Published')
+    di_oem_date_last_ads_contacted = fields.Date(string='Date of Last Ads Contacted')
+    di_oem_amount_ads_contacted = fields.Float(string='Amount of Ads Contacted')
 
+    # affiliated Program
+    di_amount_affiliated = fields.Float(string="Amount of affiliated programs", readonly=True)
+    partner_program_1 = fields.Char(string="Partner Program 1", readonly=True)  # many2one
+    partner_program_2 = fields.Char(string="Partner Program 2", readonly=True)  # many2one
+    di_oem_uploaded_document = fields.Binary(string="Uploaded Document")
+
+    def get_devinsider_platform_enablement_lists(self):
+        try:
+            import requests
+            url = "https://preprod1.wylog.com/devinsider2-dev/public/api/odoo/enablement_lists"
+            res = requests.get(url).json()
+            print(res)
+        except:
+            pass
+        self.devinsider_platform_enablement_lists = True
+
+
+    devinsider_platform_enablement_lists = fields.Boolean(string="Devinsider platform enablement_lists", compute="test_compute")
+    devinsider_new_promotion_list = fields.Boolean(string="Devinsider New an Promotion Lists")
+    devinsider_partner_communication_list = fields.Boolean(string="Devinsider partner Communication Lists")
+    devinsider_community_lists = fields.Boolean(string="Devinsider Community Lists")
+
+    # @api.depends('id_from_devinsider')
+    # def _get_di_oem_amount_isvs_unlocked(self):
+    #     data = devinsider_api_function(id_from_devinsider)
+    #     self.di_oem_amount_isvs_unlocked = data
+
+    di_oem_amount_isvs_unlocked = fields.Float(
+        string="Amount of ISVs unlocked")  # , compute=_get_di_oem_amount_isvs_unlocked
+    di_oem_amount_distinct_isvs_proact_contacted = fields.Float(string="Amount of distinct ISVs proactively contacted")
+    di_oem_date_last_isv_contacted = fields.Char(string="Date of last ISV contacted")
+    di_oem_distinct_isvs_contacted_part_prog = fields.Char(
+        string="Amount of distinct ISVs that have contacted this Partner Program")
 
     # @api.onchange('first_name', 'last_name')
     # def onchange_first_last_name(self):

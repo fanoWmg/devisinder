@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from odoo import http
 from odoo.http import request, Response
+import requests
 from . import main
 import logging
 
 _logger = logging.getLogger(__name__)
 
+end_point = "https://preprod1.wylog.com/devinsider2-dev/public/api/odoo/"
 
 class MirrorController(http.Controller):
 
@@ -38,4 +40,11 @@ class MirrorController(http.Controller):
 
 
 
+    @http.route('/api/categories', type='http', auth='public', methods=['GET'], csrf=False)
+    def test(self, **get):
+        email =  "xoxo@wylog.com"
+        url = end_point + "user_configuration/" + email
+        res = requests.get(url).json()
+        print(res)
 
+        return '{"response": "OK"}'
