@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record model="ir.ui.view" id="view_partner_form">
-            <field name="name">Partner Form with tracking emails</field>
-            <field name="model">res.partner</field>
-            <field name="priority">46</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <field name="name" invisible="1"/>
-                <!-- <xpath expr="//field[@name='email']/.." position="after">
-                     <field name="email_score" widget="progressbar"
-                            attrs="{'invisible': [('email', '=', False)]}"/>
-                     <field name="email_bounced"
-                            attrs="{'invisible': [('email', '=', False)]}"/>
-                 </xpath>-->
-            </field>
-        </record>
         <record id="ir_res_partner_view_form_inherit" model="ir.ui.view">
             <field name="name">ir.mail.server.inherit.view.form</field>
             <field name="model">res.partner</field>
@@ -25,13 +10,6 @@
                     <xpath expr="//field[@name='image_1920']" position="attributes">
                         <attribute name="invisible">1</attribute>
                     </xpath>
-                    <!--<xpath expr="//field[@name='email_score']" position="attributes">
-                        <attribute name="attrs">{'invisible': [('email', '!=', '41212')]}"</attribute>
-                    </xpath>-->
-                    <!--<xpath expr="//field[@name='email_score']" position="attributes">
-                        <attribute name="invisible">1</attribute>
-                    </xpath>-->
-
                     <xpath expr="//field[@name='type']" position="attributes">
                         <attribute name="invisible">1</attribute>
                     </xpath>
@@ -84,8 +62,9 @@
                     <div class="o_row" position="after">
                         <div id="individual_company" class="tabcontent active">
                             <div>
+                                <field name="di_primary_info_not_empty" invisible="1"/>
                                 <h1>
-                                    <field name="name"/>
+                                    <field name="name" attrs="{'readonly': [('di_primary_info_not_empty', '=', True)]}"/>
                                 </h1>
                                 <group>
                                     <field name="oem_affiliated_partner_id"
@@ -128,27 +107,32 @@
                                     <group>
                                         <div id="display_cadre">
                                             <group>
-                                                <field name="contact_category"/>
+
+                                                <field name="contact_category"
+                                                       attrs="{'readonly':[('di_primary_info_not_empty', '=', True)]}"/>
                                                 <field name="company_name"
                                                        attrs="{'invisible':[('company_type','=','person')]}"/>
                                                 <field name="company_lega_name"
                                                        attrs="{'invisible':[('company_type','=','person')]}"/>
                                                 <field name="hq_email"
                                                        attrs="{'invisible':[('company_type','=','person')]}"/>
-                                                <field name="contact_status"/>
+                                                <field name="contact_status" attrs="{'readonly':[('di_primary_info_not_empty', '=', True)]}"/>
+
                                                 <field name="first_name"
-                                                       attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
+                                                       attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')], 'readonly':[('di_primary_info_not_empty', '=', True)]}"
                                                 />
                                                 <field name="last_name"
-                                                       attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')]}"
+                                                       attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')], 'readonly':[('di_primary_info_not_empty', '=', True)]}"
                                                 />
-                                                <field name="email_pro"/>
-                                                <field name="email_score" widget="progressbar"/>
-                                                <field name="email_hard_bounced"/>
-                                                <field name="email_soft_bounced"/>
+                                                <field name="email_pro"
+                                                       attrs="{'readonly': [('di_primary_info_not_empty', '=', True)]}"/>
+                                                <field name="email_score" widget="progressbar"
+                                                       attrs="{'invisible': [('di_primary_info_not_empty', '=', True)]}"/>
+                                                <field name="email_hard_bounced"
+                                                       attrs="{'readonly': [('di_primary_info_not_empty', '=', True)]}"/>
+                                                <field name="email_soft_bounced"
+                                                       attrs="{'readonly': [('di_primary_info_not_empty', '=', True)]}"/>
                                             </group>
-
-
                                         </div>
                                     </group>
                                 </div>
@@ -160,10 +144,10 @@
                                                 Overview
                                             </span>
                                         </div>
-                                        <field name="first_name"
+                                        <field name="po_first_name"
                                                attrs="{'invisible': [('company_type', '=', 'company')]}"
                                         />
-                                        <field name="last_name"
+                                        <field name="po_last_name"
                                                attrs="{'invisible': [('company_type', '=', 'company')]}"
                                         />
                                         <field name="function"
@@ -289,12 +273,7 @@
                                                    options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
                                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                         </div>
-                                        <field name="notes"/><!--tsi tadidi n tokon hisy note-->
-
-
-                                        <!-- <field name="vat" placeholder="e.g. BE0477472701"
-                                                attrs="{'readonly': [('parent_id','!=',False)]}"/>-->
-
+                                        <field name="notes"/>
                                     </group>
                                     <group>
                                         <div class="o_horizontal_separator">Contact information</div>
@@ -565,7 +544,7 @@
                                 <div id="display_cadre_mir">
                                     <group>
                                         <field name="di_contact_category"/>
-                                        <field name="di_contact_status"/>
+                                        <!--<field name="di_contact_status"/>-->
                                         <field name="di_company_name"
                                                attrs="{'invisible': [('company_type', '=', 'person')]}"/>
                                         <field name="di_company_lega_name"
@@ -980,8 +959,7 @@
                                                     <t t-set="color"
                                                        t-value="kanban_color(record.color.raw_value)"/>
                                                     <div t-att-class="color + (record.title.raw_value == 1 ? ' oe_kanban_color_alert' : '') + ' oe_kanban_global_click'">
-                                                        <button class="btn btn-secondary"
-                                                                style="pointer-events:auto; position:absolute; width:100%; height:100%; background:none; border-color: inherit; outline: none; border:0px;"
+                                                        <button class="btn btn-secondary view_partner_btn"
                                                                 title="open" type="object" name="open_record"/>
                                                         <div class="o_kanban_image">
                                                             <img alt="" t-if="record.image_128.raw_value"

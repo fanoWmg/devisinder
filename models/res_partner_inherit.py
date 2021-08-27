@@ -7,13 +7,13 @@ from odoo import models, fields, api
 class ResPartnerInherit(models.Model):
     _inherit = 'res.partner'
 
-    # first_name = fields.Char(string="First name")
-    # last_name = fields.Char(string="Last name")
+    po_first_name = fields.Char(string="First name")
+    po_last_name = fields.Char(string="Last name")
     address = fields.Char(string="Address")
     # email_score = fields.Char(string="Email Score")
     email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
     email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
-    email_pro = fields.Char(string="Email")
+    email_pro = fields.Char(string="Email", readonly=True)
     company_type = fields.Selection(string='Company Type',
                                     selection=[('person', 'Individual'), ('company', 'Company')],
                                     compute='_compute_company_type', inverse='_write_company_type', default='person')
@@ -32,7 +32,7 @@ class ResPartnerInherit(models.Model):
         ('not_registered_in_di', 'Not Registered On Devinsider'),
         ('registered_in_di', 'Registered On Devinsider')],
         string='Contact Status')
-    di_contact_status = fields.Char(string='Contact Status')
+    di_contact_status = fields.Char(string='Contact Status', readonly=True)
 
     job_position = fields.Char(string='Job Position')
     job_category = fields.Selection([
@@ -66,12 +66,16 @@ class ResPartnerInherit(models.Model):
 
     notes = fields.Text(string='Notes')
 
+    # primary info
+    # = fields.Boolean(string="Newsletter for isvs")
+    # pri_news_letter_for_isvs = fields.Boolean(string="Newsletter for isvs")
+
     ###### DI Mirror ######
     id_di_mirror = fields.Char(string='Mirror indentification')
     di_name = fields.Char(string='Name', readonly=True)
-    di_email_pro = fields.Char(string='Email', readonly=True)
-    di_fistname = fields.Char(string='First Name', readonly=True)
-    di_lastname = fields.Char(string='Last Name', readonly=True)
+    di_email_pro = fields.Char(string='Email')
+    di_fistname = fields.Char(string='First Name')
+    di_lastname = fields.Char(string='Last Name')
     # di_image_profil = fields.Binary(string='.', readonly=True)
     di_job_position = fields.Char(string='Job position', readonly=True)
     di_city = fields.Char(string='City', readonly=True)
@@ -82,9 +86,9 @@ class ResPartnerInherit(models.Model):
     di_linkedin = fields.Char(string='Linkedin', readonly=True)
     di_about = fields.Text(string='About', readonly=True)
 
-    di_email_score = fields.Char(string="Email score", readonly=True)
-    di_email_hard_bounced = fields.Boolean(string="Email Hard Bounced", readonly=True)
-    di_email_soft_bounced = fields.Boolean(string="Email Soft Bounced", readonly=True)
+    di_email_score = fields.Char(string="Email score")
+    di_email_hard_bounced = fields.Boolean(string="Email Hard Bounced")
+    di_email_soft_bounced = fields.Boolean(string="Email Soft Bounced")
     # Profil overview
     di_first_name_po = fields.Char(string="First Name", readonly=True)
     di_last_name_po = fields.Char(string="Last Name", readonly=True)
@@ -99,7 +103,7 @@ class ResPartnerInherit(models.Model):
         ('individual_investor', 'Individual Investor'),
         ('partner_program', 'Partner Program'),
     ], string='Contact Category')
-    di_contact_status = fields.Char(string="Contact Status", readonly=True)
+    di_contact_status = fields.Char(string="Contact Status")
     di_date_signup = fields.Date(string="Date of Sign-Up", readonly=True)
     di_date_last_login = fields.Date(string="Date of the last Log-In", readonly=True)
     di_active_company_page = fields.Boolean(string="Active Company Page (Created, affiliated or Claimed Ownership)",
@@ -141,9 +145,9 @@ class ResPartnerInherit(models.Model):
 
     # company
     company_lega_name = fields.Char(string="Company Lega Name")
-    di_company_lega_name = fields.Char(string="Company Lega Name", readonly=True)
+    di_company_lega_name = fields.Char(string="Company Lega Name")
     hq_email = fields.Char(string="HQ Email")
-    di_hq_email = fields.Char(string="HQ Email", readonly=True)
+    di_hq_email = fields.Char(string="HQ Email")
     horizontal_ids = fields.Many2many('devinsider.horizontal', string="Horizontal")
     di_horizontal = fields.Char(string="Horizontal", readonly=True)
     vertical_ids = fields.Many2many('devinsider.vertical', string="Vertical")
@@ -215,7 +219,7 @@ class ResPartnerInherit(models.Model):
     facebook = fields.Char(string="Facebook")
 
     # mirror company
-    di_company_name = fields.Char(string="Company name", readonly=True)
+    di_company_name = fields.Char(string="Company name")
     di_website = fields.Char(string="Website", readonly=True)
     di_heasquarter_location = fields.Char(string="Headquarter Location", readonly=True)
     di_company_summary = fields.Char(string="Company Summary", readonly=True)
@@ -275,6 +279,9 @@ class ResPartnerInherit(models.Model):
     partner_program_2 = fields.Char(string="Partner Program 2", readonly=True)  # many2one
     di_oem_uploaded_document = fields.Binary(string="Uploaded Document")
 
+    # rule
+    di_primary_info_not_empty = fields.Boolean()
+
     def get_devinsider_platform_enablement_lists(self):
         try:
             import requests
@@ -285,8 +292,8 @@ class ResPartnerInherit(models.Model):
             pass
         self.devinsider_platform_enablement_lists = True
 
-
-    devinsider_platform_enablement_lists = fields.Boolean(string="Devinsider platform enablement_lists", compute="test_compute")
+    devinsider_platform_enablement_lists = fields.Boolean(string="Devinsider platform enablement_lists",
+                                                          compute="test_compute")
     devinsider_new_promotion_list = fields.Boolean(string="Devinsider New an Promotion Lists")
     devinsider_partner_communication_list = fields.Boolean(string="Devinsider partner Communication Lists")
     devinsider_community_lists = fields.Boolean(string="Devinsider Community Lists")
@@ -339,3 +346,44 @@ class ResPartnerInherit(models.Model):
             'res_id': self.id,
             'target': 'current',
         }
+
+    def crud_primary_info(self, vals):
+        if vals.get('di_contact_category'):
+            vals['contact_category'] = vals.get('di_contact_category')
+            vals['di_primary_info_not_empty'] = True
+        if vals.get('di_contact_status'):
+            vals['contact_status'] = vals.get('di_contact_status')
+            vals['di_primary_info_not_empty'] = True
+        if vals.get('di_lastname') and vals.get('di_fistname'):
+            vals['last_name'] = vals.get('di_lastname')
+            vals['first_name'] = vals.get('di_fistname')
+            vals['name'] = vals.get('di_fistname') + " " + vals.get('di_lastname')
+            vals['di_name'] = vals.get('di_fistname') + " " + vals.get('di_lastname')
+            vals['di_primary_info_not_empty'] = True
+        if vals.get('di_email_score'):
+            vals['email_score'] = vals.get('di_email_score')
+            vals['di_primary_info_not_empty'] = True
+        if vals.get('di_email_hard_bounced'):
+            vals['email_hard_bounced'] = vals.get('di_email_hard_bounced')
+            vals['di_primary_info_not_empty'] = True
+        if vals.get('di_email_soft_bounced'):
+            vals['email_soft_bounced'] = vals.get('di_email_soft_bounced')
+            vals['di_primary_info_not_empty'] = True
+        if vals.get('di_email_pro'):
+            vals['email_pro'] = vals.get('di_email_pro')
+
+    @api.model
+    def create(self, vals):
+        self.crud_primary_info(vals)
+        return super(ResPartnerInherit, self).create(vals)
+
+    def write(self, vals):
+        self.crud_primary_info(vals)
+        return super(ResPartnerInherit, self).write(vals)
+
+    @api.onchange('di_fistname', 'di_lastname')
+    def onchange_mir_name(self):
+        if self.di_fistname and self.di_lastname:
+            self.first_name = self.di_fistname
+            self.last_name = self.di_lastname
+            self.name = self.first_name or "" + " " + self.last_name or ""
