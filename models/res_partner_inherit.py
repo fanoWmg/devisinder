@@ -54,6 +54,8 @@ class ResPartnerInherit(models.Model):
         ('web', 'Web')],
         string='Job catergory')
 
+
+
     job_level = fields.Selection([
         ('c_level', 'C - Level'),
         ('vp', 'VP'),
@@ -72,7 +74,7 @@ class ResPartnerInherit(models.Model):
 
     ###### DI Mirror ######
     id_di_mirror = fields.Char(string='Mirror indentification')
-    di_name = fields.Char(string='Name', readonly=True)
+    di_name = fields.Char(string='Name')
     di_email_pro = fields.Char(string='Email')
     di_fistname = fields.Char(string='First Name')
     di_lastname = fields.Char(string='Last Name')
@@ -310,6 +312,8 @@ class ResPartnerInherit(models.Model):
     di_oem_distinct_isvs_contacted_part_prog = fields.Char(
         string="Amount of distinct ISVs that have contacted this Partner Program")
 
+
+
     # @api.onchange('first_name', 'last_name')
     # def onchange_first_last_name(self):
     #     if self.first_name or self.last_name:
@@ -372,6 +376,17 @@ class ResPartnerInherit(models.Model):
         if vals.get('di_email_pro'):
             vals['email_pro'] = vals.get('di_email_pro')
 
+        # company
+        if vals.get('di_company_name'):
+            vals['company_name'] = vals.get('di_company_name')
+            vals['di_primary_info_not_empty'] = True
+        if vals.get('di_company_lega_name'):
+            vals['company_lega_name'] = vals.get('di_company_lega_name')
+            vals['di_primary_info_not_empty'] = True
+        if vals.get('di_hq_email'):
+            vals['hq_email'] = vals.get('di_hq_email')
+            vals['di_primary_info_not_empty'] = True
+
     @api.model
     def create(self, vals):
         self.crud_primary_info(vals)
@@ -387,3 +402,8 @@ class ResPartnerInherit(models.Model):
             self.first_name = self.di_fistname
             self.last_name = self.di_lastname
             self.name = self.first_name or "" + " " + self.last_name or ""
+
+    @api.onchange('di_name')
+    def onchange_di_name(self):
+        if self.di_name:
+            self.name = self.di_name

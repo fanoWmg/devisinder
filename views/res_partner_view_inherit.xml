@@ -64,7 +64,8 @@
                             <div>
                                 <field name="di_primary_info_not_empty" invisible="1"/>
                                 <h1>
-                                    <field name="name" attrs="{'readonly': [('di_primary_info_not_empty', '=', True)]}"/>
+                                    <field name="name"  placeholder="Name"
+                                           attrs="{'readonly': [('di_primary_info_not_empty', '=', True)]}"/>
                                 </h1>
                                 <group>
                                     <field name="oem_affiliated_partner_id"
@@ -111,12 +112,13 @@
                                                 <field name="contact_category"
                                                        attrs="{'readonly':[('di_primary_info_not_empty', '=', True)]}"/>
                                                 <field name="company_name"
-                                                       attrs="{'invisible':[('company_type','=','person')]}"/>
+                                                       attrs="{'invisible':[('company_type','=','person')], 'readonly':[('di_primary_info_not_empty', '=', True)]}"/>
                                                 <field name="company_lega_name"
-                                                       attrs="{'invisible':[('company_type','=','person')]}"/>
+                                                       attrs="{'invisible':[('company_type','=','person')], 'readonly':[('di_primary_info_not_empty', '=', True)]}"/>
                                                 <field name="hq_email"
-                                                       attrs="{'invisible':[('company_type','=','person')]}"/>
-                                                <field name="contact_status" attrs="{'readonly':[('di_primary_info_not_empty', '=', True)]}"/>
+                                                       attrs="{'invisible':[('company_type','=','person')], 'readonly':[('di_primary_info_not_empty', '=', True)]}"/>
+                                                <field name="contact_status"
+                                                       attrs="{'readonly':[('di_primary_info_not_empty', '=', True)]}"/>
 
                                                 <field name="first_name"
                                                        attrs="{'invisible': [('company_type', '=', 'company')], 'required': [('name', '=', False), ('company_type', '=', 'person')], 'readonly':[('di_primary_info_not_empty', '=', True)]}"
@@ -283,6 +285,7 @@
                                                attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
                                         <field name="active_comp_page"
                                                attrs="{'invisible': ['|', ('contact_category','=','partner_program'), ('company_type', '=', 'person')]}"/>
+                                        <field name="users_assignations_id" string="Assigned to" readonly="1"/>
                                     </group>
                                 </group>
                                 <group>
@@ -520,7 +523,7 @@
 
                         <div id="mirror" class="tabcontent hidden_class">
                             <h1>
-                                <field name="di_name"/>
+                                <field  placeholder="Name" name="di_name"/>
                             </h1>
                             <div class="cadre" id="cadre_mir">
                                 <group>
